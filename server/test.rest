@@ -1,0 +1,16 @@
+GET http://localhost:3000/error-test
+
+###
+GET http://localhost:3000/rand-error
+
+###
+GET http://localhost:3000/db-error
+
+###
+POST http://localhost:3000/validation-err
+Content-Type: application/json
+
+{
+    "email":"123",
+    "password": "df"
+}
