@@ -26,7 +26,7 @@ POST https://8a08-103-59-205-109.ngrok.io/api/users/signin
 Content-Type: application/json
 
 {
-    "email": "tk7@gmail.com",
+    "email": "tkfds7@gmail.com",
     "password": "1234"
 }
 
@@ -38,3 +38,25 @@ Content-Type: application/json
     "email": "tk7@gmail.com",
     "password": "1234"
 }
+
+###
+GET https://recommender-backend.herokuapp.com/api/users/currentuser
+
+###
+POST https://recommender-backend.herokuapp.com/api/users/signup
+Content-Type: application/json
+
+{
+    "email": "tk7@gmail.com",
+    "password": "1234"
+}
+
+###
+POST https://recommender-backend.herokuapp.com/api/users/signin
+Content-Type: application/json
+
+{
+    "email": "tk7@gmail.com",
+    "password": "1234"
+}
+
