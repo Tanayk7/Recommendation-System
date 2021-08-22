@@ -1,12 +1,19 @@
+require('dotenv').config();
 const mongoose = require('mongoose');
 const app = require('./app');
 
 const PORT = 3000;
+const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@starlight.j80mw.mongodb.net/${process.env.DB_DATABASE}?retryWrites=true&w=majority`;
 
 (async () => {
     try {
-        // connect to mongoose here 
-        console.log("Connected to databse successfully");
+        await mongoose.connect(uri, {
+            useNewUrlParser: true,
+            useUnifiedTopology: true,
+            useCreateIndex: true
+        });
+
+        console.log("Connected to database successfully!");
     }
     catch (err) {
         console.log(err);
@@ -15,4 +22,4 @@ const PORT = 3000;
     app.listen(PORT, () => {
         console.log(`Listening on port: ${PORT}`);
     })
-})()
+})();
