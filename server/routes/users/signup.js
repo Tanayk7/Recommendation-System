@@ -2,49 +2,47 @@ require('dotenv').config();
 const express = require('express');
 const { body } = require('express-validator');
 const jwt = require('jsonwebtoken');
-
 const validateRequest = require('../../middleware/validateRequest');
 const BadRequestError = require('../../errors/bad-request-error');
+const { password_policy } = require('../../config');
 const User = require('../../models/user');
-const Password = require('../../utils/password');
 
 const router = express.Router();
-const route = '/api/users/signin';
+const route = '/api/users/signup';
 const validation_rules = [
     body('email').isEmail().withMessage('Email must be valid'),
-    body('password').trim().notEmpty().withMessage('You must supply a password'),
+    body('password').trim().isLength({
+        min: password_policy.MIN_CHARS,
+        max: password_policy.MAX_CHARS
+    }),
 ];
 const middlewares = [...validation_rules, validateRequest];
-
 
 router.post(
     route,
     ...middlewares,
     async (req, res) => {
         const { email, password } = req.body;
-        const existingUser = await User.findOne({ email });
+        const user_exists = await User.findOne({ email });
 
-        if (!existingUser) {
-            throw new BadRequestError("Invalid credentials");
+        if (user_exists) {
+            throw new BadRequestError("Email is in use");
         }
 
-        const passwordMatch = await Password.compare(existingUser.password, password);
-
-        if (!passwordMatch) {
-            throw new BadRequestError("Invalid credentials");
-        }
+        const user = User.build({ email, password });
+        await user.save();
 
         const userJWT = jwt.sign(
             {
-                id: existingUser.id,
-                email: existingUser.email
+                id: user.id,
+                email: user.email
             },
             process.env.JWT_KEY
         );
 
         req.session = { jwt: userJWT };
-        res.status(200).send(existingUser);
+        res.status(201).send(user);
     }
 );
 
-module.exports = { signinRouter: router };
+module.exports = { signupRouter: router };

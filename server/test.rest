@@ -1,19 +1,31 @@
-GET http://localhost:3000/error-test
+GET http://localhost:3000/api/users/currentuser
 
 ###
-GET http://localhost:3000/rand-error
-
-###
-GET http://localhost:3000/db-error
-
-###
-POST http://localhost:3000/validation-err
+POST http://localhost:3000/api/users/signin
 Content-Type: application/json
 
 {
-    "email":"123",
-    "password": "df"
+    "email": "tk7@gmail.com",
+    "password": "1234"
+}
+
+### 
+POST http://localhost:3000/api/users/signup
+Content-Type: application/json
+
+{
+    "email": "123",
+    "password": "1"
 }
 
 ###
-GET http://localhost:3000/api/users/currentuser
+GET https://8a08-103-59-205-109.ngrok.io/api/users/currentuser
+
+###
+POST https://8a08-103-59-205-109.ngrok.io/api/users/signin
+Content-Type: application/json
+
+{
+    "email": "tk7@gmail.com",
+    "password": "1234"
+}
