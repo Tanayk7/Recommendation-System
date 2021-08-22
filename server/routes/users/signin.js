@@ -1,4 +1,3 @@
-require('dotenv').config();
 const express = require('express');
 const { body } = require('express-validator');
 const jwt = require('jsonwebtoken');
@@ -20,18 +19,18 @@ const middlewares = [...validation_rules, validateRequest];
 router.post(
     route,
     ...middlewares,
-    async (req, res) => {
+    async (req, res, next) => {
         const { email, password } = req.body;
         const existingUser = await User.findOne({ email });
 
         if (!existingUser) {
-            throw new BadRequestError("Invalid credentials");
+            return next(new BadRequestError("Invalid credentials"));
         }
 
         const passwordMatch = await Password.compare(existingUser.password, password);
 
         if (!passwordMatch) {
-            throw new BadRequestError("Invalid credentials");
+            return next(new BadRequestError("Invalid credentials"));
         }
 
         const userJWT = jwt.sign(

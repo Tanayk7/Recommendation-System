@@ -21,12 +21,12 @@ const middlewares = [...validation_rules, validateRequest];
 router.post(
     route,
     ...middlewares,
-    async (req, res) => {
+    async (req, res, next) => {
         const { email, password } = req.body;
         const user_exists = await User.findOne({ email });
 
         if (user_exists) {
-            throw new BadRequestError("Email is in use");
+            return next(new BadRequestError("Email is in use"));
         }
 
         const user = User.build({ email, password });
