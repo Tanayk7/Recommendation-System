@@ -14,3 +14,6 @@ Content-Type: application/json
     "email":"123",
     "password": "df"
 }
+
+###
+GET http://localhost:3000/api/users/currentuser
