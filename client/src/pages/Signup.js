@@ -48,7 +48,7 @@ class Signup extends react.Component{
                 <label>Name:</label><input className = "tc pa2 ma1 br3" type="text" value={this.state.name} onChange = {this.inputName} placeholder="Enter Your Name"></input><br/>
                 <label>Email:</label><input className = "tc pa2 ma1 br3" type="text" value={this.state.email} onChange = {this.inputEmail} placeholder="Enter Your Email"></input><br/>
                 <label>Password:</label><input className = "tc pa2 ma1 br3" type="text" value={this.state.password} onChange = {this.inputPassword}placeholder="Enter Your Password"></input><br/>
-                <input className = "tc pa2 ma1 br3 button" type="submit" value="submit"></input>
+                <input className = "tc pa2 ma1 br3" type="submit" value="submit"></input>
                 </form>
                 
             </div>
