@@ -46,6 +46,5 @@ const task = async (data = null) => {
     while (true) {
         await setTimeoutSync(job_config.recommendation.INTERVAL);
         await task();
-
     };
 })();

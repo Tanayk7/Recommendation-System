@@ -31,9 +31,9 @@ const jobs = [
 
 (async () => {
     try {
-        for (let job of jobs) {
-            createWorker(job)
-        }
+        // for (let job of jobs) {
+        //     createWorker(job)
+        // }
 
         await mongoose.connect(DB_URI, {
             useNewUrlParser: true,

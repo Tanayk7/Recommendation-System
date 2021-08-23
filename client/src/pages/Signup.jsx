@@ -1,4 +1,5 @@
 import react from "react";
+import apis from '../apis';
 import "./style.css";
 
 export class Signup extends react.Component{
@@ -10,8 +11,6 @@ export class Signup extends react.Component{
             password: "",
         }
         this.onClick = this.onClick.bind(this);
-        
-
     }
 
     changeValues = (event) => {
@@ -19,13 +18,16 @@ export class Signup extends react.Component{
             name: event.target.value,
             email: event.target.value,
             password: event.target.value
-        })
+        });
     }
 
-    onClick = (event) =>{
-        event.preventDefault()
-        console.log("this was clicked");
-        console.log(this.state);
+    onClick = async (e) =>{
+        e.preventDefault();
+
+        let {email,password} = {...this.state};
+        let response = await apis.signup({ email,password });
+
+        console.log("Response from server: ", response);
     }
 
     

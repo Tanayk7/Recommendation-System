@@ -1,6 +1,6 @@
-const { signupRouter } = require('./users/signup');
-const { signinRouter } = require('./users/signin');
-const { currentUserRouter } = require('./users/current-user');
+const { signupRouter } = require('./auth/signup');
+const { signinRouter } = require('./auth/signin');
+const { currentUserRouter } = require('./auth/current-user');
 
 module.exports = {
     signupRouter,
