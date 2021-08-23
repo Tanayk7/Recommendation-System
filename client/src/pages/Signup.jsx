@@ -24,7 +24,7 @@ export class Signup extends react.Component{
     onClick = async (e) =>{
         e.preventDefault();
 
-        let {email,password} = {...this.state};
+        let { email,password } = {...this.state};
         let response = await apis.signup({ email,password });
 
         console.log("Response from server: ", response);
