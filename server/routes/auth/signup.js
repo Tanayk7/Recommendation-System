@@ -2,6 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const { body } = require('express-validator');
 const jwt = require('jsonwebtoken');
+
 const validateRequest = require('../../middleware/validateRequest');
 const BadRequestError = require('../../errors/bad-request-error');
 const { password_policy } = require('../../config');

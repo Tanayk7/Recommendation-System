@@ -19,6 +19,43 @@ Content-Type: application/json
 }
 
 ###
+POST http://localhost:3000/api/users/add-movies
+Content-Type: application/json
+
+{
+    "userId": "6122a2e24aee3733608c9e0b",
+    "movies": [
+        {
+            "genre": "test",
+            "name": "test movie",
+            "rating": "6.1",
+            "popularity": "10",
+            "release_year": "2020"
+        },
+        {
+            "genre": "test 2",
+            "name": "test movie 2",
+            "rating": "6.1",
+            "popularity": "10",
+            "release_year": "2020"
+        }
+    ]
+}
+
+###
+DELETE http://localhost:3000/api/users/delete-movies
+Content-Type: application/json
+
+{
+    "userId": "6122a2e24aee3733608c9e0b",
+    "movies": [
+        {
+            "name": "test movie"
+        }
+    ]
+}
+
+###
 GET https://8a08-103-59-205-109.ngrok.io/api/users/currentuser
 
 ###

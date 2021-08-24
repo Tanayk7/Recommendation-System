@@ -3,7 +3,13 @@ const cors = require('cors');
 const cookieSession = require('cookie-session');
 
 const errorHandler = require('./middleware/errorHandler.js');
-const { signupRouter, signinRouter, currentUserRouter } = require('./routes');
+const {
+    signupRouter,
+    signinRouter,
+    currentUserRouter,
+    addMoviesRouter,
+    deleteMoviesRouter
+} = require('./routes');
 
 const app = express();
 
@@ -22,6 +28,8 @@ app.use((req, res, next) => {
 app.use(signupRouter);
 app.use(signinRouter);
 app.use(currentUserRouter);
+app.use(addMoviesRouter);
+app.use(deleteMoviesRouter);
 app.use(errorHandler);
 
 module.exports = app;
