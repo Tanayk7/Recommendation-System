@@ -56,6 +56,15 @@ Content-Type: application/json
 }
 
 ###
+POST http://localhost:3000/api/users/get-movies
+Content-Type: application/json
+
+{
+    "min": -1,
+    "max": 10
+}
+
+###
 GET https://8a08-103-59-205-109.ngrok.io/api/users/currentuser
 
 ###

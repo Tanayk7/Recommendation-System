@@ -54,6 +54,7 @@ class App extends react.Component{
       <div className="App">
  
         <Profile movies={movies} profileInfo={profile_info}/>
+        
         <div className="login">
           <div className="container">
             {isLoginActive && <Login containerRef = {(ref) => this.current = ref}/>}

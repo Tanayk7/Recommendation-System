@@ -8,7 +8,8 @@ const {
     signinRouter,
     currentUserRouter,
     addMoviesRouter,
-    deleteMoviesRouter
+    deleteMoviesRouter,
+    getMoviesRouter
 } = require('./routes');
 
 const app = express();
@@ -30,6 +31,7 @@ app.use(signinRouter);
 app.use(currentUserRouter);
 app.use(addMoviesRouter);
 app.use(deleteMoviesRouter);
+app.use(getMoviesRouter);
 app.use(errorHandler);
 
 module.exports = app;
