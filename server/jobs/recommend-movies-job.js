@@ -1,7 +1,7 @@
 require("dotenv").config();
 const { parentPort } = require('worker_threads');
 const setTimeoutSync = require('../utils/setTimeoutSync');
-const { job_config, DB_URI } = require('../config');
+const { policies, DB_URI } = require('../config');
 const mongoose = require('mongoose');
 const User = require('../models/user');
 
@@ -44,7 +44,7 @@ const task = async (data = null) => {
     await init();
 
     while (true) {
-        await setTimeoutSync(job_config.recommendation.INTERVAL);
+        await setTimeoutSync(policies.recommendation.INTERVAL);
         await task();
     };
 })();

@@ -5,7 +5,7 @@ const jwt = require('jsonwebtoken');
 
 const validateRequest = require('../../middleware/validateRequest');
 const BadRequestError = require('../../errors/bad-request-error');
-const { password_policy } = require('../../config');
+const { policies } = require('../../config');
 const User = require('../../models/user');
 
 const router = express.Router();
@@ -13,8 +13,8 @@ const route = '/api/users/signup';
 const validation_rules = [
     body('email').isEmail().withMessage('Email must be valid'),
     body('password').trim().isLength({
-        min: password_policy.MIN_CHARS,
-        max: password_policy.MAX_CHARS
+        min: policies.password.MIN_CHARS,
+        max: policies.password.MAX_CHARS
     }),
 ];
 const middlewares = [...validation_rules, validateRequest];

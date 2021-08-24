@@ -6,13 +6,13 @@ const interval = 1000 * 60 * num_minutes;
 
 module.exports = {
     DB_URI: uri,
-    password_policy: {
-        MIN_CHARS: 4,
-        MAX_CHARS: 20,
-    },
-    job_config: {
+    policies: {
+        password: {
+            MIN_CHARS: 4,
+            MAX_CHARS: 20,
+        },
         recommendation: {
             INTERVAL: interval
-        }
+        },
     }
 }
