@@ -1,5 +1,5 @@
 import React from 'react';
-import "./style.css"
+import "./style.scss"
 
 
 class Signup extends React.Component{
@@ -24,7 +24,7 @@ class Signup extends React.Component{
      })
    }
  }
- 
+
  handleChange(e){
   const target = e.target;
   const value = target.type === 'checkbox' ? target.checked : target.value;
@@ -80,54 +80,62 @@ class Signup extends React.Component{
 }
 submitForm(e){
   e.preventDefault();
+  this.handleChange(e)
   const data = {
    firstName: this.state.firstName,
    lastName: this.state.lastName,
    email: this.state.email,
    password: this.state.password
   }
+  this.handleChange(e);
   console.log(data);
   };
  
 render(){
 return(
   <div className="container">
-    <div className="card card-login mx-auto mt-5">
-      <div className="card-header">Signup</div>
-        <div className="card-body">
-            <form id="signup-form">
+    <div className="header">w2Watch</div>
+    <div className="content">
+        <h1 className="card-header">Signup</h1>
+        
+            <form className="form "id="signup-form">
               <div className="form-group">
-                <div className="form-label-group">
-                    <label htmlFor="firstname">firstname</label>
-                  <input type="text" id="firstname" name="firstname" className="form-control" placeholder="Enter firstname" onChange={(e)=>{this.handleChange(e)}} />
-                  
-                  {this.state.firstnameError ? <span style={{color: "red"}}>Please Enter some value</span> : ''} 
-                </div>
+                    {/* <label htmlFor="firstname">Firstname</label> */}
+                    <input type="text" id="firstname" name="firstname" className="form-control" placeholder="Enter firstname" onChange={(e)=>{this.handleChange(e)}} />
+                    {this.state.firstnameError ? <span style={{color: "red"}}>Please Enter some value</span> : ''} 
               </div>
               <div className="form-group">
-                <div className="form-label-group">
-                  <label htmlFor="lastname">lastname</label>
-                  <input type="text" id="lastname" name="lastname" className="form-control" placeholder="Enter lastname" onChange={(e)=>{this.handleChange(e)}} />
+                  {/* <label htmlFor="lastname">Lastname</label> */}
+                  <input type="text"
+                  id="lastname"
+                  name="lastname"
+                  className="form-control"
+                  placeholder="Enter lastname"
+                  onChange={(e)=>{this.handleChange(e)}} />
                   {this.state.lastnameError ? <span style={{color: "red"}}>Please Enter some value</span> : ''}
-                </div>
               </div>
               <div className="form-group">
-                <div className="form-label-group">
-                  <label htmlFor="email">email</label>
-                  <input type="email" id="email" name="email" className="form-control" placeholder="Enter your email" onChange={(e)=>{this.handleChange(e)}} />
+                
+                  {/* <label htmlFor="email">Email</label> */}
+                  <input type="email"
+                  id="email" name="email"
+                  className="form-control"
+                  placeholder="Enter Email"
+                  onChange={(e)=>{this.handleChange(e)}} />
                   {this.state.emailError ? <span style={{color: "red"}}>Please Enter valid email address</span> : ''}
-                </div>
               </div>                
               <div className="form-group">
-                <div className="form-label-group">
-                  <label htmlFor="password">Password</label>
-                  <input type="password" id="password" name="password" className="form-control" placeholder="Password" onChange={(e)=>{this.handleChange(e)}} />
+                  {/* <label htmlFor="password">Password</label> */}
+                  <input type="password"
+                  id="password" name="password"
+                  className="form-control"
+                  placeholder="Enter Password"
+                  onChange={(e)=>{this.handleChange(e)}} />
                   {this.state.passwordError ? <span style={{color: "red"}}>Please enter some   value</span> : ''}
-                </div>
               </div>                
               <button className="btn btn-primary btn-block" disabled={this.state.isDisabled} onClick={this.submitForm}>Signup</button>
             </form>
-        </div>
+        
       </div>
     </div>
   );

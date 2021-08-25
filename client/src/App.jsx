@@ -2,7 +2,7 @@ import react from 'react';
 import './App.css';
 import Login from "./pages/Login.jsx"
 import Signup from "./pages/Signup.jsx"
-import Profile from './pages/Profile/Profile';
+// import Profile from './pages/Profile/Profile';
 
 const movies = [
   {
@@ -53,7 +53,7 @@ class App extends react.Component{
     return(
       <div className="App">
  
-        <Profile movies={movies} profileInfo={profile_info}/>
+        {/* <Profile movies={movies} profileInfo={profile_info}/> */}
         
         <div className="login">
           <div className="container">
