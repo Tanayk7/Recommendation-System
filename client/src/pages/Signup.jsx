@@ -1,123 +1,136 @@
-import react from "react";
-import apis from '../apis';
-import "./style.css";
+import React from 'react';
+import "./style.css"
 
-export class Signup extends react.Component{
-    constructor(props){
-        super(props);
-        this.state = {
-            name: "",
-            email: "",
-            password: "",
-        }
-        this.onClick = this.onClick.bind(this);
+
+class Signup extends React.Component{
+  constructor(props){
+    super(props);
+     this.state = {
+       isDisabled:true
+     }                                                                                                 
+     this.submitForm = this.submitForm.bind(this);
+  }
+  validateEmail(email){
+   const pattern = /[a-zA-Z0-9]+[\.]?([a-zA-Z0-9]+)?[\@][a-z]{3,9}[\.][a-z]{2,5}/g;
+   const result = pattern.test(email);
+   if(result===true){
+     this.setState({
+       emailError:false,
+       email:email
+     })
+   } else{
+     this.setState({
+       emailError:true
+     })
+   }
+ }
+ 
+ handleChange(e){
+  const target = e.target;
+  const value = target.type === 'checkbox' ? target.checked : target.value;
+  const name = target.name;
+  this.setState({
+    [name]: value
+  });
+  if(e.target.name==='firstname'){
+    if(e.target.value==='' || e.target.value===null ){
+      this.setState({
+        firstnameError:true
+      })
+    } else {
+      this.setState({
+        firstnameError:false,     
+        firstName:e.target.value
+      })
     }
-
-    changeValues = (event) => {
-        this.setState({
-            name: event.target.value,
-            email: event.target.value,
-            password: event.target.value
-        });
+  }
+  if(e.target.name==='lastname'){
+    if(e.target.value==='' || e.target.value===null){
+      this.setState({
+        lastnameError:true
+      })
+    } else {
+      this.setState({
+        lastnameError:false,
+        lastName:e.target.value
+      })
     }
-
-    onClick = async (e) =>{
-        e.preventDefault();
-
-        let { email,password } = {...this.state};
-        let response = await apis.signup({ email,password });
-
-        console.log("Response from server: ", response);
+  }
+  if(e.target.name==='email'){
+   this.validateEmail(e.target.value);
+  }
+  if(e.target.name==='password'){
+    if(e.target.value==='' || e.target.value===null){
+      this.setState({
+        passwordError:true
+      })
+    } else {
+      this.setState({
+        passwordError:false,
+        password:e.target.value
+      })
     }
-
-    
-    render(){
-        return(
-            <div className="container" ref={this.props.containerRef}>
-                <div className="header">Signup</div>
-                <div className="content">
-                    <div className="form">
-                        <div className="form-group">
-                            <label htmlFor="username">Username</label>
-                            <input type="text" name="username" onChange={this.changeValues} placeholder="username" />
-                        </div>
-                        <div className="form-group">
-                            <label htmlFor="email">Email</label>
-                            <input type="email" name="email" onChange={this.changeValues} placeholder="email" />
-                        </div>
-                        <div className="form-group">
-                            <label htmlFor="password">Password</label>
-                            <input type="text" name="password" onChange={this.changeValues} placeholder="password" />
-                        </div>
-                    </div>
+ }
+ if(this.state.firstnameError===false && this.state.lastnameError===false && 
+  this.state.emailError===false && this.state.passwordError===false){
+    this.setState({
+      isDisabled:false
+    })
+ }
+}
+submitForm(e){
+  e.preventDefault();
+  const data = {
+   firstName: this.state.firstName,
+   lastName: this.state.lastName,
+   email: this.state.email,
+   password: this.state.password
+  }
+  console.log(data);
+  };
+ 
+render(){
+return(
+  <div className="container">
+    <div className="card card-login mx-auto mt-5">
+      <div className="card-header">Signup</div>
+        <div className="card-body">
+            <form id="signup-form">
+              <div className="form-group">
+                <div className="form-label-group">
+                    <label htmlFor="firstname">firstname</label>
+                  <input type="text" id="firstname" name="firstname" className="form-control" placeholder="Enter firstname" onChange={(e)=>{this.handleChange(e)}} />
+                  
+                  {this.state.firstnameError ? <span style={{color: "red"}}>Please Enter some value</span> : ''} 
                 </div>
-                <div className="footer">
-                    <button onClick = {this.onClick} type="button" className="btn">Signup</button>
+              </div>
+              <div className="form-group">
+                <div className="form-label-group">
+                  <label htmlFor="lastname">lastname</label>
+                  <input type="text" id="lastname" name="lastname" className="form-control" placeholder="Enter lastname" onChange={(e)=>{this.handleChange(e)}} />
+                  {this.state.lastnameError ? <span style={{color: "red"}}>Please Enter some value</span> : ''}
                 </div>
-            </div>
-        )
-    }
+              </div>
+              <div className="form-group">
+                <div className="form-label-group">
+                  <label htmlFor="email">email</label>
+                  <input type="email" id="email" name="email" className="form-control" placeholder="Enter your email" onChange={(e)=>{this.handleChange(e)}} />
+                  {this.state.emailError ? <span style={{color: "red"}}>Please Enter valid email address</span> : ''}
+                </div>
+              </div>                
+              <div className="form-group">
+                <div className="form-label-group">
+                  <label htmlFor="password">Password</label>
+                  <input type="password" id="password" name="password" className="form-control" placeholder="Password" onChange={(e)=>{this.handleChange(e)}} />
+                  {this.state.passwordError ? <span style={{color: "red"}}>Please enter some   value</span> : ''}
+                </div>
+              </div>                
+              <button className="btn btn-primary btn-block" disabled={this.state.isDisabled} onClick={this.submitForm}>Signup</button>
+            </form>
+        </div>
+      </div>
+    </div>
+  );
+ }
 }
 export default Signup;
-
-
-
-// import react from "react";
-// import "./Signup.css"
-
-// class Signup extends react.Component{
-
-//     constructor(){
-//         super()
-//         this.state = {
-//             name:"",
-//             email:"",
-//             password:"",
-//         };
-        
-//     }
-
-
-//     inputName = (event) =>{
-//         this.setState({
-//             name: event.target.value
-//         })
-//     }
-
-//     inputEmail = (event) =>{
-//         this.setState({
-//             email: event.target.value
-//         })
-//     }
-
-//     inputPassword = (event) =>{
-//         this.setState({
-//             password: event.target.value
-//         })
-//     }
-
-//     onSubmit = (event) =>{
-//         event.preventDefault()
-//         const arr = [];
-//         arr.push(this.state);
-//         console.log(arr);
-//         console.log(this.state);
-//     }
-
-//     render(){
-//         return(
-//             <div className="container">
-//                 <h1>Signup</h1>
-//                 <form onSubmit = {this.onSubmit} className="formContainer"> 
-//                 <label>Name:</label><input className = "tc pa2 ma1 br3" type="text" value={this.state.name} onChange = {this.inputName} placeholder="Enter Your Name"></input><br/>
-//                 <label>Email:</label><input className = "tc pa2 ma1 br3" type="text" value={this.state.email} onChange = {this.inputEmail} placeholder="Enter Your Email"></input><br/>
-//                 <label>Password:</label><input className = "tc pa2 ma1 br3" type="text" value={this.state.password} onChange = {this.inputPassword}placeholder="Enter Your Password"></input><br/>
-//                 <input className = "tc pa2 ma1 br3" type="submit" value="submit"></input>
-//                 </form>
-                
-//             </div>
-//         )
-//     }
-// }
-
-// export default Signup;
