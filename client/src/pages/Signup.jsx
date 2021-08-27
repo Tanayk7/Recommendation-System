@@ -6,136 +6,123 @@ class Signup extends React.Component{
   constructor(props){
     super(props);
      this.state = {
-       isDisabled:true
-     }                                                                                                 
-     this.submitForm = this.submitForm.bind(this);
+       fields: {},
+       errors: {}
+     }
   }
-  validateEmail(email){
-   const pattern = /[a-zA-Z0-9]+[\.]?([a-zA-Z0-9]+)?[\@][a-z]{3,9}[\.][a-z]{2,5}/g;
-   const result = pattern.test(email);
-   if(result===true){
-     this.setState({
-       emailError:false,
-       email:email
-     })
-   } else{
-     this.setState({
-       emailError:true
-     })
-   }
- }
 
- handleChange(e){
-  const target = e.target;
-  const value = target.type === 'checkbox' ? target.checked : target.value;
-  const name = target.name;
-  this.setState({
-    [name]: value
-  });
-  if(e.target.name==='firstname'){
-    if(e.target.value==='' || e.target.value===null ){
-      this.setState({
-        firstnameError:true
-      })
-    } else {
-      this.setState({
-        firstnameError:false,     
-        firstName:e.target.value
-      })
+  handleValidation = () => {
+    let fields = this.state.fields;
+    let errors = {};
+    let formIsValid = true;
+
+    //Name
+    if(!fields["name"]){
+      formIsValid = false;
+      errors["name"] = "This field cannot be empty";
     }
-  }
-  if(e.target.name==='lastname'){
-    if(e.target.value==='' || e.target.value===null){
-      this.setState({
-        lastnameError:true
-      })
-    } else {
-      this.setState({
-        lastnameError:false,
-        lastName:e.target.value
-      })
+
+   if(typeof fields["name"] !== "undefined"){
+      if(!fields["name"].match(/^[a-zA-Z]+$/)){
+         formIsValid = false;
+         errors["name"] = "Only letters";
+      }        
     }
-  }
-  if(e.target.name==='email'){
-   this.validateEmail(e.target.value);
-  }
-  if(e.target.name==='password'){
-    if(e.target.value==='' || e.target.value===null){
-      this.setState({
-        passwordError:true
-      })
-    } else {
-      this.setState({
-        passwordError:false,
-        password:e.target.value
-      })
+
+    //Email
+    if(!fields["email"]){
+      formIsValid = false;
+      errors["email"] = "This field cannot be empty";
     }
- }
- if(this.state.firstnameError===false && this.state.lastnameError===false && 
-  this.state.emailError===false && this.state.passwordError===false){
-    this.setState({
-      isDisabled:false
-    })
- }
-}
+
+    if(typeof fields["email"] !== "undefined"){
+      let lastAtPos = fields["email"].lastIndexOf('@');
+      let lastDotPos = fields["email"].lastIndexOf('.');
+
+      if (!(lastAtPos < lastDotPos && lastAtPos > 0 && fields["email"].indexOf('@@') === -1 && lastDotPos > 2 && (fields["email"].length - lastDotPos) > 2)) {
+         formIsValid = false;
+         errors["email"] = "Email is not valid";
+        }
+    }
+
+    //Password
+    if(!fields["password"]){
+      formIsValid = false;
+      errors["password"] = "This field cannot be empty";
+    }
+
+    this.setState({errors: errors});
+    return formIsValid;
+
+  }
+
+  onSubmit = event =>{
+    event.preventDefault();
+
+    this.handleValidation();
+    console.log(this.state);
+  }
+
+  handleChange = (field, event) =>{
+    let fields = this.state.fields;
+    fields[field] = event.target.value;
+    this.setState({fields});
+  }
+
 submitForm(e){
   e.preventDefault();
-  this.handleChange(e)
   const data = {
    firstName: this.state.firstName,
-   lastName: this.state.lastName,
    email: this.state.email,
    password: this.state.password
   }
-  this.handleChange(e);
   console.log(data);
   };
  
 render(){
 return(
   <div className="container">
-    <div className="header">w2Watch</div>
     <div className="content">
-        <h1 className="card-header">Signup</h1>
-        
-            <form className="form "id="signup-form">
+        <h1 className="card-header">NASA HACKED</h1>
+            <form className="form">
               <div className="form-group">
                     {/* <label htmlFor="firstname">Firstname</label> */}
-                    <input type="text" id="firstname" name="firstname" className="form-control" placeholder="Enter firstname" onChange={(e)=>{this.handleChange(e)}} />
-                    {this.state.firstnameError ? <span style={{color: "red"}}>Please Enter some value</span> : ''} 
+                  <div className="input-container">
+                    <i className='icons bx bxs-user-circle'></i>
+                      <input type="text"
+                      name="name"
+                      className="form-control"
+                      placeholder="Enter Name"
+                      onChange={this.handleChange.bind(this, "name")} />
+                  </div>
+                  <div className="errors">{this.state.errors.name}</div>
               </div>
               <div className="form-group">
-                  {/* <label htmlFor="lastname">Lastname</label> */}
-                  <input type="text"
-                  id="lastname"
-                  name="lastname"
-                  className="form-control"
-                  placeholder="Enter lastname"
-                  onChange={(e)=>{this.handleChange(e)}} />
-                  {this.state.lastnameError ? <span style={{color: "red"}}>Please Enter some value</span> : ''}
-              </div>
-              <div className="form-group">
-                
                   {/* <label htmlFor="email">Email</label> */}
+                <div className="input-container">
+                <i className='icons bx bxs-envelope'></i>
                   <input type="email"
-                  id="email" name="email"
+                  name="email"
                   className="form-control"
                   placeholder="Enter Email"
-                  onChange={(e)=>{this.handleChange(e)}} />
-                  {this.state.emailError ? <span style={{color: "red"}}>Please Enter valid email address</span> : ''}
+                  onChange={this.handleChange.bind(this, "email")} />
+                </div>
+                <div className="errors">{this.state.errors.email}</div>
               </div>                
               <div className="form-group">
                   {/* <label htmlFor="password">Password</label> */}
+                  <div className="input-container">
+                  <i className='icons bx bxs-lock-alt' ></i>
                   <input type="password"
-                  id="password" name="password"
+                  name="password"
                   className="form-control"
                   placeholder="Enter Password"
-                  onChange={(e)=>{this.handleChange(e)}} />
-                  {this.state.passwordError ? <span style={{color: "red"}}>Please enter some   value</span> : ''}
+                  onChange={this.handleChange.bind(this, "password")} />
+                </div>
+                <div className="errors">{this.state.errors.password}</div>
               </div>                
-              <button className="btn btn-primary btn-block" disabled={this.state.isDisabled} onClick={this.submitForm}>Signup</button>
+              <button className="btn btn-primary btn-block" disabled={this.state.isDisabled} onClick={this.onSubmit}>SIGNUP</button>
             </form>
-        
       </div>
     </div>
   );

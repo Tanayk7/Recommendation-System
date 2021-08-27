@@ -1,8 +1,7 @@
 import react from 'react';
 import './App.css';
 import Login from "./pages/Login.jsx"
-import Signup from "./pages/Signup.jsx"
-// import Profile from './pages/Profile/Profile';
+// import Signup from "./pages/Signup.jsx"
 
 const movies = [
   {
@@ -57,8 +56,7 @@ class App extends react.Component{
         
         <div className="login">
           <div className="container">
-            {isLoginActive && <Login containerRef = {(ref) => this.current = ref}/>}
-            {!isLoginActive && <Signup containerRef = {(ref) => this.current = ref}/>}
+            {!isLoginActive && <Login containerRef = {(ref) => this.current = ref}/>}
           </div>
 
         </div>
