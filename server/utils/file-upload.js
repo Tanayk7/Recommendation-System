@@ -37,6 +37,3 @@ const deleteFile = (file_id, Model) => {
 }
 
 module.exports = { uploadFile, getFile, deleteFile };
-
-
-

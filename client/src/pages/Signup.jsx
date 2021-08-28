@@ -16,25 +16,6 @@ class Signup extends React.Component{
     let errors = {};
     let formIsValid = true;
 
-    //Name
-    if(!fields["name"]){
-      formIsValid = false;
-      errors["name"] = "This field cannot be empty";
-    }
-
-   if(typeof fields["name"] !== "undefined"){
-      if(!fields["name"].match(/^[a-zA-Z]+$/)){
-         formIsValid = false;
-         errors["name"] = "Only letters";
-      }        
-    }
-
-    //Email
-    if(!fields["email"]){
-      formIsValid = false;
-      errors["email"] = "This field cannot be empty";
-    }
-
     if(typeof fields["email"] !== "undefined"){
       let lastAtPos = fields["email"].lastIndexOf('@');
       let lastDotPos = fields["email"].lastIndexOf('.');
@@ -55,11 +36,11 @@ class Signup extends React.Component{
     return formIsValid;
 
   }
+  
+  onSubmit = (e) => {
+    e.preventDefault();
 
-  onSubmit = event =>{
-    event.preventDefault();
-
-    this.handleValidation();
+    // this.handleValidation();
     console.log(this.state);
   }
 
@@ -69,60 +50,57 @@ class Signup extends React.Component{
     this.setState({fields});
   }
 
-submitForm(e){
-  e.preventDefault();
-  const data = {
-   firstName: this.state.firstName,
-   email: this.state.email,
-   password: this.state.password
-  }
-  console.log(data);
-  };
- 
 render(){
 return(
   <div className="container">
     <div className="content">
         <h1 className="card-header">NASA HACKED</h1>
-            <form className="form">
-              <div className="form-group">
-                    {/* <label htmlFor="firstname">Firstname</label> */}
-                  <div className="input-container">
-                    <i className='icons bx bxs-user-circle'></i>
-                      <input type="text"
-                      name="name"
-                      className="form-control"
-                      placeholder="Enter Name"
-                      onChange={this.handleChange.bind(this, "name")} />
-                  </div>
-                  <div className="errors">{this.state.errors.name}</div>
+
+        <form className="form" onSubmit={this.onSubmit}>
+          <div className="form-group">
+              <div className="input-container">
+                <i className='icons bx bxs-user-circle'></i>
+                  <input 
+                    className="form-control"
+                    placeholder="Enter Name"
+                    onChange={this.handleChange.bind(this, "name")} 
+                    required
+                  />
               </div>
-              <div className="form-group">
-                  {/* <label htmlFor="email">Email</label> */}
-                <div className="input-container">
-                <i className='icons bx bxs-envelope'></i>
-                  <input type="email"
-                  name="email"
-                  className="form-control"
-                  placeholder="Enter Email"
-                  onChange={this.handleChange.bind(this, "email")} />
-                </div>
-                <div className="errors">{this.state.errors.email}</div>
-              </div>                
-              <div className="form-group">
-                  {/* <label htmlFor="password">Password</label> */}
-                  <div className="input-container">
-                  <i className='icons bx bxs-lock-alt' ></i>
-                  <input type="password"
-                  name="password"
-                  className="form-control"
-                  placeholder="Enter Password"
-                  onChange={this.handleChange.bind(this, "password")} />
-                </div>
-                <div className="errors">{this.state.errors.password}</div>
-              </div>                
-              <button className="btn btn-primary btn-block" disabled={this.state.isDisabled} onClick={this.onSubmit}>SIGNUP</button>
-            </form>
+              <div className="errors">{this.state.errors.name}</div>
+          </div>
+
+          <div className="form-group">
+            <div className="input-container">
+            <i className='icons bx bxs-envelope'></i>
+              <input 
+                type="email"
+                className="form-control"
+                placeholder="Enter Email"
+                onChange={this.handleChange.bind(this, "email")} 
+                required
+              />
+            </div>
+            <div className="errors">{this.state.errors.email}</div>
+          </div>   
+
+          <div className="form-group">
+              <div className="input-container">
+              <i className='icons bx bxs-lock-alt' ></i>
+              <input 
+                type="password"
+                name="password"
+                className="form-control"
+                placeholder="Enter Password"
+                onChange={this.handleChange.bind(this, "password")} 
+                required
+              />
+            </div>
+            <div className="errors">{this.state.errors.password}</div>
+          </div>  
+
+          <button type='submit' className="btn btn-primary btn-block" disabled={this.state.isDisabled}>SIGNUP</button>
+        </form>
       </div>
     </div>
   );
