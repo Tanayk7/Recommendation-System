@@ -36,8 +36,10 @@ router.post(
 
         const userJWT = generateAccessToken({ id: user.id, email: user.email });
 
-        res.setHeader('Authorization', `Bearer ${userJWT}`);
-        res.status(201).send(user);
+        res.status(201).send({
+            user,
+            token: userJWT
+        });
     }
 );
 
