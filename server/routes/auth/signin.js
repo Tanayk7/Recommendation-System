@@ -1,7 +1,7 @@
 const express = require('express');
 const { body } = require('express-validator');
-const jwt = require('jsonwebtoken');
 
+const { generateAccessToken } = require('../../utils/auth');
 const validateRequest = require('../../middleware/validateRequest');
 const BadRequestError = require('../../errors/bad-request-error');
 const User = require('../../models/user');
@@ -33,16 +33,17 @@ router.post(
             return next(new BadRequestError("Invalid credentials"));
         }
 
-        const userJWT = jwt.sign(
+        const userJWT = generateAccessToken(
             {
                 id: existingUser.id,
                 email: existingUser.email
             },
-            process.env.JWT_KEY
         );
 
-        req.session = { jwt: userJWT };
-        res.status(200).send(existingUser);
+        res.status(200).send({
+            user: existingUser,
+            token: userJWT
+        });
     }
 );
 

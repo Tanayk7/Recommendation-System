@@ -14,14 +14,15 @@ const Home = () => {
 const App = () => {
   useEffect(() => {
     loginUser();
-
   }, []);
 
   const loginUser = async () =>{
-    const response = await apis.signin({email:"tk7@gmail.com", password: "1234"});
-    console.log(response);
-    const response2 = await apis.currentUser();
-    console.log(response2);
+    const { token } = await apis.signin({email:"tk7@gmail.com", password: "1234"});
+    const currentUser = await apis.currentUser(token);
+    const movies = await apis.getMovies({min: 0, max: 5});
+
+    console.log("Movies: ", movies);
+    console.log("Current user: ", currentUser);
   }
 
   return (

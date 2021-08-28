@@ -7,6 +7,7 @@ const validateRequest = require('../../middleware/validateRequest');
 const BadRequestError = require('../../errors/bad-request-error');
 const { policies } = require('../../config');
 const User = require('../../models/user');
+const { generateAccessToken } = require('../../utils/auth');
 
 const router = express.Router();
 const route = '/api/users/signup';
@@ -33,15 +34,9 @@ router.post(
         const user = User.build({ email, password });
         await user.save();
 
-        const userJWT = jwt.sign(
-            {
-                id: user.id,
-                email: user.email
-            },
-            process.env.JWT_KEY
-        );
+        const userJWT = generateAccessToken({ id: user.id, email: user.email });
 
-        req.session = { jwt: userJWT };
+        res.setHeader('Authorization', `Bearer ${userJWT}`);
         res.status(201).send(user);
     }
 );

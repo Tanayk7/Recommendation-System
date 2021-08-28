@@ -1,10 +1,18 @@
 const express = require('express');
-const currentUser = require('../../middleware/current-user');
+
+const { currentUser2 } = require('../../middleware/current-user');
 
 const router = express.Router();
 
-router.get('/api/users/currentuser', currentUser, (req, res) => {
-    res.send({ currentUser: req.currentUser || null });
-});
+const route = '/api/users/currentUser';
+const middlewares = [currentUser2];
+
+router.get(
+    route,
+    ...middlewares,
+    (req, res) => {
+        res.send({ currentUser: req.currentUser || null });
+    }
+);
 
 module.exports = { currentUserRouter: router };

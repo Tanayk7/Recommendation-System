@@ -14,14 +14,14 @@ const {
 
 const app = express();
 
-app.set('trust proxy', 1);
+app.use(cors());
+app.set('trust proxy', true);
 app.use(cookieSession({
     signed: false,
     secure: process.env.NODE_ENV !== 'test'
 }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(cors());
 app.use((req, res, next) => {
     res.setHeader('X-Powered-By', 'T.K.FKO.12');
     next();

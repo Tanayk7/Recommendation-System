@@ -1,12 +1,13 @@
 GET http://localhost:3000/api/users/currentuser
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxMmEzYTU1ZTIzZTQ1MjRmODI4YWZjNSIsImVtYWlsIjoidGUyMjEzMzNAdGVzdC5jb20iLCJpYXQiOjE2MzAxNTkyMDUsImV4cCI6MTYzMDE2MDEwNX0.9W55jlfjlnmJUEczmsc7oZ_ApbmiywgXyb2DCmdg_Qk
 
 ###
 POST http://localhost:3000/api/users/signin
 Content-Type: application/json
 
 {
-    "email": "tk7@gmail.com",
-    "password": "1234"
+    "email": "te221333@test.com",
+    "password": "123456"
 }
 
 ### 
@@ -14,16 +15,19 @@ POST http://localhost:3000/api/users/signup
 Content-Type: application/json
 
 {
-    "email": "test@test.com",
+    "email": "te221333@test.com",
     "password": "123456"
 }
 
 ###
+
+###
 POST http://localhost:3000/api/users/add-movies
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxMmEzYTU1ZTIzZTQ1MjRmODI4YWZjNSIsImVtYWlsIjoidGUyMjEzMzNAdGVzdC5jb20iLCJpYXQiOjE2MzAxNTkyMDUsImV4cCI6MTYzMDE2MDEwNX0.9W55jlfjlnmJUEczmsc7oZ_ApbmiywgXyb2DCmdg_Qk
 
 {
-    "userId": "6122a2e24aee3733608c9e0b",
+    "userId": "612a3a55e23e4524f828afc5",
     "movies": [
         {
             "genre": "test",
@@ -45,12 +49,13 @@ Content-Type: application/json
 ###
 DELETE http://localhost:3000/api/users/delete-movies
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxMmEzYTU1ZTIzZTQ1MjRmODI4YWZjNSIsImVtYWlsIjoidGUyMjEzMzNAdGVzdC5jb20iLCJpYXQiOjE2MzAxNTkyMDUsImV4cCI6MTYzMDE2MDEwNX0.9W55jlfjlnmJUEczmsc7oZ_ApbmiywgXyb2DCmdg_Qk
 
 {
-    "userId": "6122a2e24aee3733608c9e0b",
+    "userId": "612a3a55e23e4524f828afc5",
     "movies": [
         {
-            "name": "test movie"
+            "name": "test movie 2"
         }
     ]
 }
@@ -60,49 +65,49 @@ POST http://localhost:3000/api/users/get-movies
 Content-Type: application/json
 
 {
-    "min": -1,
+    "min": 0,
     "max": 10
 }
 
 ###
-GET https://8a08-103-59-205-109.ngrok.io/api/users/currentuser
+# GET https://8a08-103-59-205-109.ngrok.io/api/users/currentuser
 
-###
-POST https://8a08-103-59-205-109.ngrok.io/api/users/signin
-Content-Type: application/json
+# ###
+# POST https://8a08-103-59-205-109.ngrok.io/api/users/signin
+# Content-Type: application/json
 
-{
-    "email": "tkfds7@gmail.com",
-    "password": "1234"
-}
+# {
+#     "email": "tkfds7@gmail.com",
+#     "password": "1234"
+# }
 
-###
-POST https://8a08-103-59-205-109.ngrok.io/api/users/signup
-Content-Type: application/json
+# ###
+# POST https://8a08-103-59-205-109.ngrok.io/api/users/signup
+# Content-Type: application/json
 
-{
-    "email": "tk7@gmail.com",
-    "password": "1234"
-}
+# {
+#     "email": "tk7@gmail.com",
+#     "password": "1234"
+# }
 
-###
-GET https://recommender-backend.herokuapp.com/api/users/currentuser
+# ###
+# GET https://recommender-backend.herokuapp.com/api/users/currentuser
 
-###
-POST https://recommender-backend.herokuapp.com/api/users/signup
-Content-Type: application/json
+# ###
+# POST https://recommender-backend.herokuapp.com/api/users/signup
+# Content-Type: application/json
 
-{
-    "email": "test@1234.com",
-    "password": "1234"
-}
+# {
+#     "email": "test@1234.com",
+#     "password": "1234"
+# }
 
-###
-POST https://recommender-backend.herokuapp.com/api/users/signin
-Content-Type: application/json
+# ###
+# POST https://recommender-backend.herokuapp.com/api/users/signin
+# Content-Type: application/json
 
-{
-    "email": "tk7@gmail.com",
-    "password": "1234"
-}
+# {
+#     "email": "tk7@gmail.com",
+#     "password": "1234"
+# }
 

@@ -31,6 +31,9 @@ module.exports = {
     DB_URI: uri,
     RUN_JOBS: false,
     policies: {
+        auth: {
+            TOKEN_EXPIRY: '15m'
+        },
         password: {
             MIN_CHARS: 4,
             MAX_CHARS: 20,

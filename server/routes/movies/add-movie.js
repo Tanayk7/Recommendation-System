@@ -3,11 +3,12 @@ const express = require('express');
 const BadRequestError = require('../../errors/bad-request-error');
 
 const requireAuth = require('../../middleware/require-auth');
+const { currentUser2 } = require('../../middleware/current-user');
 const User = require('../../models/user');
 
 const router = express.Router();
 const route = '/api/users/add-movies';
-const middlewares = [requireAuth];
+const middlewares = [currentUser2, requireAuth];
 
 router.post(
     route,
