@@ -1,4 +1,4 @@
-import React, {useState, useContext, useEffect, useRef} from 'react';
+import React, {useState, useContext } from 'react';
 import "./signup.scss"
 import { AppContext } from '../../AppContext';
 import apis from '../../apis';
@@ -9,24 +9,16 @@ const Signup = (props) => {
     email: "",
     password: ""
   });
-  const is_mounted = useRef(false);
-
-  useEffect(() => {
-    if(is_mounted.current){
-      if(auth_token !== null){
-        props.history.push('/home');
-      }
-    }
-    else{
-      is_mounted.current = true;
-    }
-  }, [auth_token]);
 
   const onSubmit = async (e) => {
     e.preventDefault();
+
     let { email, password } = state;
-    await signupUser(email,password);
-  }
+
+    await signupUser(email,password, () => {
+      props.history.push('/home');
+    });
+  };
 
   return(
     <div className="container">

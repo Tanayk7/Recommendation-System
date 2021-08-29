@@ -35,8 +35,8 @@ function preprocess(users) {
 }
 
 // finds the nearest neighbours to a user 
-function findNearestNeighbours(user_id, all_users, k) {
-    let current_user = all_users.find(user => user.id === user_id);
+function findNearestNeighbours(user, all_users, k) {
+    let current_user = user;
     let distances = [];
 
     for (let other of all_users) {
@@ -57,8 +57,9 @@ function findNearestNeighbours(user_id, all_users, k) {
         }
     }
 
-    // sort in descending order
+    // sort in ascending order
     distances.sort((a, b) => a.distance - b.distance);
+    console.log("Distances: ", distances);
     k_nearest_neighbours = distances.slice(0, k);
 
     return k_nearest_neighbours;
@@ -108,18 +109,20 @@ function getRecommendations(current_user, all_users) {
 
 function recommendMovies(users) {
     let all_users = [...users];
+    console.log("All users initially: ", all_users);
 
     all_users = preprocess(all_users);
+    console.log("All users after pre-processing: ", all_users);
 
     for (let user of all_users) {
-        user.neighbours = findNearestNeighbours(user.id, all_users, K);
+        user.neighbours = findNearestNeighbours(user, all_users, K);
     }
+    console.log("All users after finding neighbours: ", all_users);
 
     for (let user of all_users) {
         user.recommendations = getRecommendations(user, all_users);
     }
-
-    console.log(all_users);
+    console.log("All users after getting recommendations: ", all_users);
 }
 
 recommendMovies(users);
