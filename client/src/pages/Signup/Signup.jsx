@@ -1,7 +1,7 @@
 import React, {useState, useContext, useEffect, useRef} from 'react';
-import "./style.scss"
-import { AppContext } from '../AppContext';
-import apis from '../apis';
+import "./signup.scss"
+import { AppContext } from '../../AppContext';
+import apis from '../../apis';
 
 const Signup = (props) => {
   const { signupUser, auth_token } = useContext(AppContext);
@@ -31,8 +31,9 @@ const Signup = (props) => {
   return(
     <div className="container">
       <div className="content">
-          <h1 className="card-header">Signup</h1>
+          <div className="card-header">Signup</div>
           <form className="form" onSubmit={onSubmit}>
+            
             <div className="form-group">
               <div className="input-container">
               <i className='icons bx bxs-envelope'></i>
