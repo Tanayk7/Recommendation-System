@@ -2,7 +2,6 @@ import React, {useState, useContext, useEffect, useRef} from 'react';
 import "./login.scss"
 import { AppContext } from '../../AppContext';
 
-
 const  Login = (props) => {
   const {loginUser, auth_token} = useContext(AppContext);
   const[state, setState] = useState({

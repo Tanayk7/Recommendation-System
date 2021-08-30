@@ -59,7 +59,6 @@ function findNearestNeighbours(user, all_users, k) {
 
     // sort in ascending order
     distances.sort((a, b) => a.distance - b.distance);
-    console.log("Distances: ", distances);
     k_nearest_neighbours = distances.slice(0, k);
 
     return k_nearest_neighbours;
