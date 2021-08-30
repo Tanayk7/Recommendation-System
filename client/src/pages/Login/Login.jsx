@@ -1,6 +1,8 @@
 import React, {useState, useContext} from 'react';
+import Layout from '../../Common/Layout/Layout';
 import "./login.scss"
 import { AppContext } from '../../AppContext';
+
 
 const  Login = (props) => {
   const { loginUser } = useContext(AppContext);
@@ -20,6 +22,9 @@ const  Login = (props) => {
   };
 
   return(
+    <Layout>
+
+    
   <div className="container">
       <div className="content">
           <div className="card-header">Login</div>
@@ -60,6 +65,7 @@ const  Login = (props) => {
               </form>
         </div>
       </div>
+      </Layout>
   );
 }
 

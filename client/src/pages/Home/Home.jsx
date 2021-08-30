@@ -65,7 +65,7 @@ const Home = () => {
     return(
         <Layout>
             <div className="movie-container">
-                <h2 className="app-title">Recommended</h2>
+                <h1 className="app-title">Recommended</h1>
                 <MovieList movies = {movieList} />
             </div>
         </Layout>   

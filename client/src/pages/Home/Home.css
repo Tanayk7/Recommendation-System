@@ -6,12 +6,12 @@
 .movie-list{
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
+    justify-content: space-between;
 }
 
 .movie-card {
-    width: 225px;
-    margin: 1rem;
+    width: 205px;
+    /* margin: 1rem; */
     background-color: var(--gray);
     box-shadow: var(--box-shadow);
     position: relative;
