@@ -7,9 +7,8 @@ import './Navbar.css';
 const Navbar = () => {
     const { auth_token } = useContext(AppContext);
     const location = useLocation();
-    //const history = useHistory();
     const path = location.pathname;
-    
+
     return (
         <div className='navbar'>
             <div className="navbar-left">
@@ -38,8 +37,6 @@ const Navbar = () => {
                         <div className="avatar">
                             T
                         </div>
-
-                        
                         <button className="logout-button">
                             logout
                         </button>

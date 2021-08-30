@@ -2,7 +2,7 @@ import React, {useState, useContext} from 'react';
 import Layout from '../../Common/Layout/Layout';
 import "./login.scss"
 import { AppContext } from '../../AppContext';
-import Link from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const  Login = (props) => {
   const { loginUser } = useContext(AppContext);
