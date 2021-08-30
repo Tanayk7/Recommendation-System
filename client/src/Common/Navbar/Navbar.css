@@ -58,7 +58,7 @@
 }
 
 .nav-links{
-    margin-right: 10px;
+    margin-right: 15px;
 }
 
 .nav-link{
@@ -98,4 +98,39 @@
 
 .logout-button:hover{
     background:#272727;
+}
+
+.login-button{
+    background: #41b860;
+    color: #1E1E1E;
+    font-weight: bold;
+    border-radius: 50px;
+    padding: 10px 15px 10px 15px;
+    border: none;
+    outline: none;
+    text-transform: capitalize;
+    font-size: 15px;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+.login-button:hover{
+    background: #52e278;
+}
+
+.signup-button{
+    font-weight: bold;
+    color: #83FFA5;
+    background: #1E1E1E;
+    border-radius: 50px;
+    padding: 10px 15px 10px 15px;
+    border: none;
+    outline: none;
+    text-transform: capitalize;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+.signup-button:hover{
+    background: #292929;
 }

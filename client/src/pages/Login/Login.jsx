@@ -17,7 +17,7 @@ const  Login = (props) => {
     let { email, password } = state;
 
     await loginUser(email, password, () => {
-      props.history.push("/home");
+      props.history.push("/");
     });
   };
 

@@ -1,13 +1,13 @@
 GET http://localhost:3000/api/users/currentuser
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxMmEzYTU1ZTIzZTQ1MjRmODI4YWZjNSIsImVtYWlsIjoidGUyMjEzMzNAdGVzdC5jb20iLCJpYXQiOjE2MzAxNTkyMDUsImV4cCI6MTYzMDE2MDEwNX0.9W55jlfjlnmJUEczmsc7oZ_ApbmiywgXyb2DCmdg_Qk
+//Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxMmEzYTU1ZTIzZTQ1MjRmODI4YWZjNSIsImVtYWlsIjoidGUyMjEzMzNAdGVzdC5jb20iLCJpYXQiOjE2MzAzMzcyNzcsImV4cCI6MTYzMDMzODE3N30.BY-EezrMOJlngJFf744I5ik9vl5K_m9Iuv0Es-umI7c
 
 ###
 POST http://localhost:3000/api/users/signin
 Content-Type: application/json
 
 {
-    "email": "te221333@test.com",
-    "password": "123456"
+    "email": "paven123@gmail.com",
+    "password": "1234"
 }
 
 ### 
