@@ -48,18 +48,16 @@ const MovieList = ({title,movies}) => {
             <h1 className="app-title">{title}</h1>
             <div className="movie-list">
             {
-                movies.map(movie => {
-                    console.log(typeof movie.release_date);
-                    return (
-                        <Movie
-                            title={movie.title}
-                            image={movie.avatar}
-                            genre={title}
-                            rating={movie.rating}
-                            year={movie.release_date} 
-                        />
-                    )
-                })
+                movies.map((movie,index) => (
+                    <Movie
+                        key={index}
+                        title={movie.title}
+                        image={movie.avatar}
+                        genre={title}
+                        rating={movie.rating}
+                        year={movie.release_date} 
+                    />
+                ))
             }
             </div>
         </div>
@@ -68,9 +66,7 @@ const MovieList = ({title,movies}) => {
 
 const Home = () => {
     const { getMovies, movies } = useContext(AppContext);
-
-    console.log(movies);
-
+    
     useEffect(() => {
         getMovies({ min:0, max:16 });
     }, []);
@@ -80,9 +76,9 @@ const Home = () => {
             <div className="movie-container">
                 {
                     movies.length > 0 && 
-                    movies.map(movie => (
+                    movies.map((movie,index) => (
                         <div style={{marginBottom:"25px"}}>
-                            <MovieList title={movie.genre} movies={movie.movies}/>
+                            <MovieList title={movie.genre} movies={movie.movies} key={index}/>
                         </div>
                     ))
                 }

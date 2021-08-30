@@ -1,11 +1,11 @@
 import React, {useContext} from 'react';
 import { Link } from 'react-router-dom';
 import { AppContext } from '../../AppContext';
-import { useLocation, useHistory } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import './Navbar.css';
 
 const Navbar = () => {
-    const { auth_token } = useContext(AppContext);
+    const { authenticated, logoutUser } = useContext(AppContext);
     const location = useLocation();
     const path = location.pathname;
 
@@ -32,12 +32,12 @@ const Navbar = () => {
                     </Link>
                 </div>
                 {
-                    auth_token !== null ?
+                    authenticated ?
                     <>
                         <div className="avatar">
                             T
                         </div>
-                        <button className="logout-button">
+                        <button className="logout-button" onClick={logoutUser}>
                             logout
                         </button>
                     </>
