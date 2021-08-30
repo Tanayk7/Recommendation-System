@@ -2,7 +2,7 @@ import React, {useState, useContext} from 'react';
 import Layout from '../../Common/Layout/Layout';
 import "./login.scss"
 import { AppContext } from '../../AppContext';
-import Link from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const  Login = (props) => {
   const { loginUser } = useContext(AppContext);
@@ -30,7 +30,7 @@ const  Login = (props) => {
           <div className="card-header">Login</div>
           <Link to="/Signup">
           <div className="create-account-option">
-            Don't have an account? <a href="{Signup}" className="href-link">Create An Account</a>   
+            Don't have an account? &nbsp; <a href="{Signup}" className="href-link" >Create An Account</a>   
           </div>
           </Link>
 
