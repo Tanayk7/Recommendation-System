@@ -3,7 +3,7 @@ import { AppContext } from '../../AppContext';
 import Layout from '../../Common/Layout/Layout';
 import "./signup.scss";
 
-const Signup = (props) => {
+export const Signup = (props) => {
   const { signupUser } = useContext(AppContext);
   const [state,setState] = useState({
     email: "",
