@@ -1,10 +1,9 @@
-import React, {useState, useContext } from 'react';
+import React, {useState, useContext} from 'react';
 import "./signup.scss"
 import { AppContext } from '../../AppContext';
-import apis from '../../apis';
 
 const Signup = (props) => {
-  const { signupUser, auth_token } = useContext(AppContext);
+  const { signupUser } = useContext(AppContext);
   const [state,setState] = useState({
     email: "",
     password: ""
