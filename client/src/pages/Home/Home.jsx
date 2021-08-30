@@ -1,53 +1,58 @@
 import React from 'react';
+import {movieList} from "../../MovieLists/movieList"
+import "./Home.css";
 
-const movie_list = [
-    {
-        name: "movie 1",
-        genre: "action",
-        image: "https://media.istockphoto.com/photos/movie-projector-on-dark-background-picture-id1007557230?k=20&m=1007557230&s=612x612&w=0&h=hWEw8rA6ASt-Z18pNvUKk2GtQZVLj1GHv3HFlNB4p6U=",
-        year: "2021",
-        rating: 5
-    },
-    {
-        name: "movie 1",
-        genre: "action",
-        image: "https://media.istockphoto.com/photos/movie-projector-on-dark-background-picture-id1007557230?k=20&m=1007557230&s=612x612&w=0&h=hWEw8rA6ASt-Z18pNvUKk2GtQZVLj1GHv3HFlNB4p6U=",
-        year: "2021",
-        rating: 5
-    },
-    {
-        name: "movie 1",
-        genre: "action",
-        image: "https://media.istockphoto.com/photos/movie-projector-on-dark-background-picture-id1007557230?k=20&m=1007557230&s=612x612&w=0&h=hWEw8rA6ASt-Z18pNvUKk2GtQZVLj1GHv3HFlNB4p6U=",
-        year: "2021",
-        rating: 5
-    }
-]
+// const image_path = 'https://image.tmdb.org/t/p/w1280';
 
-const Movie = ({ name, image, genre, rating, year}) => {
-    return (
-        <div>
-            <img src={image} alt="" className="movie-image" />
-            <div className="movie-name">{name}</div>
-            <div className="movie-genre">{genre}</div>
-            <div className="movie-rating">{rating}</div>
-            <div className="movie-year">{year}</div>
+const Movie = ({ name, image, genre, rating, year }) => {
+    return(
+        <div className="movie-card">
+
+            <img className="thumbnail" src={image} alt={name} />
+            
+            <div className="movie-info">
+
+                <div className="movie-name">
+                    <div className="name-content">
+                        {name}
+                    </div>
+                </div>
+
+                <div className="movie-genre">
+                    <div className="genre-content">
+                        {genre}
+                    </div>
+                </div>
+
+                <div className="movie-year">
+                    <div className="year-content">
+                        {year}
+                    </div>
+                </div>
+
+                <div className="movie-rating">
+                    <div className="rating-content">
+                        tmdb - {rating}
+                    </div>
+                </div>
+
+            </div>
+
         </div>
     )
-}
+};
 
-const MovieList = ({ movies, title }) => {
-    return (
-        <div>
-            <h1>{title}</h1>
+const MovieList = ({movies}) => {
+    return(
+        <div className="movie-list">
             {
                 movies.map(movie => (
-                    <Movie 
+                    <Movie
                         name={movie.name}
                         image={movie.image}
                         genre={movie.genre}
                         rating={movie.rating}
-                        year={movie.year}
+                        year={movie.year.substring(0,4)} 
                     />
                 ))
             }
@@ -55,13 +60,13 @@ const MovieList = ({ movies, title }) => {
     )
 }
 
-
 const Home = () => {
-    return (
-        <div>
-            <MovieList movies={movie_list} title="Recommended"/>
+    return(
+        <div className="movie-container">
+            <h2 className="app-title">Recommended</h2>
+            <MovieList movies = {movieList} />
         </div>
-    );
+    )
 }
 
 export default Home;
