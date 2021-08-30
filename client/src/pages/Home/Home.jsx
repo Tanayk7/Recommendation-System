@@ -45,7 +45,9 @@ const Movie = ({ name, image, genre, rating, year }) => {
 
 const MovieList = ({movies}) => {
     return(
-        <div className="movie-list">
+        <div className="movie-list-wrapper">
+            <div className="movie-list">
+
             {
                 movies.map(movie => (
                     <Movie
@@ -57,6 +59,8 @@ const MovieList = ({movies}) => {
                     />
                 ))
             }
+
+            </div>
         </div>
     )
 }

@@ -2,7 +2,7 @@ import React, {useState, useContext} from 'react';
 import "./signup.scss"
 import { AppContext } from '../../AppContext';
 
-const Signup = (props) => {
+export const Signup = (props) => {
   const { signupUser } = useContext(AppContext);
   const [state,setState] = useState({
     email: "",
