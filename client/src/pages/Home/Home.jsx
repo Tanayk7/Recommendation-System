@@ -1,5 +1,6 @@
 import React from 'react';
 import {movieList} from "../../MovieLists/movieList"
+import Layout from '../../Common/Layout/Layout';
 import "./Home.css";
 
 // const image_path = 'https://image.tmdb.org/t/p/w1280';
@@ -62,11 +63,13 @@ const MovieList = ({movies}) => {
 
 const Home = () => {
     return(
-        <div className="movie-container">
-            <h2 className="app-title">Recommended</h2>
-            <MovieList movies = {movieList} />
-        </div>
-    )
+        <Layout>
+            <div className="movie-container">
+                <h2 className="app-title">Recommended</h2>
+                <MovieList movies = {movieList} />
+            </div>
+        </Layout>   
+    );
 }
 
 export default Home;
