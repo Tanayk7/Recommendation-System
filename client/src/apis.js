@@ -19,7 +19,7 @@ export default {
         }
     },
 
-    signup: async ({ email, password }) => {
+    signup: async ({ email, password, name }) => {
         let url = base_url + '/api/users/signup';
 
         try {
@@ -28,7 +28,7 @@ export default {
                 headers: {
                     "Content-Type": "application/json"
                 },
-                body: JSON.stringify({ email, password })
+                body: JSON.stringify({ email, password, name })
             });
             let data = await response.json();
 

@@ -37,6 +37,7 @@ router.post(
             {
                 id: existingUser.id,
                 email: existingUser.email,
+                name: user.name
             },
         );
 

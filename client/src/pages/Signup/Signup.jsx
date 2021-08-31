@@ -7,16 +7,17 @@ export const Signup = (props) => {
   const { signupUser } = useContext(AppContext);
   const [state,setState] = useState({
     email: "",
-    password: ""
+    password: "",
+    name: ""
   });
 
   const onSubmit = async (e) => {
     e.preventDefault();
 
-    let { email, password } = state;
+    let { email, password, name } = state;
 
-    await signupUser(email,password, () => {
-      props.history.push('/home');
+    await signupUser(email,password, name, () => {
+      props.history.push('/');
     });
   };
 
@@ -31,6 +32,19 @@ export const Signup = (props) => {
                 <div className="input-container">
                 <i className='icons bx bxs-envelope'></i>
                   <input 
+                    type="text"
+                    className="form-control"
+                    placeholder="Enter Name"
+                    onChange={e => setState({...state, name: e.target.value})} 
+                    required
+                  />
+                </div>
+              </div>   
+
+              <div className="form-group">
+                <div className="input-container">
+                <i className='icons bx bxs-envelope'></i>
+                  <input 
                     type="email"
                     className="form-control"
                     placeholder="Enter Email"
@@ -38,7 +52,6 @@ export const Signup = (props) => {
                     required
                   />
                 </div>
-            
               </div>   
     
               <div className="form-group">

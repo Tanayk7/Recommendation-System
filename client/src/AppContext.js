@@ -66,8 +66,8 @@ export class ContextProvider extends React.Component {
         return null;
     }
 
-    signupUser = async (email, password, callback) => {
-        let { user, token } = await apis.signup({ email, password });
+    signupUser = async (email, password, name, callback) => {
+        let { user, token } = await apis.signup({ email, password, name });
 
         if (user) {
             this.setState({
