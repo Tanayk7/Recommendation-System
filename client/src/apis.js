@@ -122,8 +122,8 @@ export default {
         }
     },
 
-    getUserMovies: async () => {
-        let url = base_url + '/api/users/get-user-movies',
+    getUserMovies: async (token) => {
+        let url = base_url + '/api/users/get-user-movies';
 
         try {
             let response = await fetch(url, {
@@ -141,8 +141,8 @@ export default {
         }
     },
 
-    getUserRecommendations: async () => {
-        let url = base_url + '/api/users/get-user-recommendations',
+    getUserRecommendations: async (token) => {
+        let url = base_url + '/api/users/get-user-recommendations';
 
         try {
             let response = await fetch(url, {

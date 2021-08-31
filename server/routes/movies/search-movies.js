@@ -31,15 +31,16 @@ router.post(
         for (let obj of results) {
             for (let movie of obj.movies) {
                 if (movie.title.toUpperCase().includes(query.toUpperCase())) {
-                    if (!search_results.includes(JSON.stringify(movie))) {
-                        search_results.push(JSON.stringify(movie));
+                    let movie_obj = {
+                        genre: obj.genre,
+                        ...movie
+                    };
+
+                    if (!search_results.find(result => result.title === movie_obj.title)) {
+                        search_results.push(movie_obj);
                     }
                 }
             }
-        }
-
-        for (let i = 0; i < search_results.length; i++) {
-            search_results[i] = JSON.parse(search_results[i]);
         }
 
         res.status(200).send(search_results);

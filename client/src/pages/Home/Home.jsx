@@ -48,7 +48,6 @@ const Movie = ({ title, image, genre, rating, year }) => {
 };
 
 const MovieList = ({title,movies}) => {
-    console.log(movies);
     return(
         <div className="movie-list-wrapper">
             <h1 className="app-title">{title}</h1>
@@ -59,7 +58,7 @@ const MovieList = ({title,movies}) => {
                         key={index}
                         title={movie.title}
                         image={movie.avatar}
-                        genre={title}
+                        genre={movie.genre}
                         rating={movie.rating}
                         year={movie.release_date && movie.release_date.substring(0,4)} 
                     />
@@ -71,22 +70,33 @@ const MovieList = ({title,movies}) => {
 }
 
 const Home = () => {
-    const { getMovies, movies } = useContext(AppContext);
+    const { getMovies, movies, search_results, authenticated, current_user } = useContext(AppContext);
     
     useEffect(() => {
-        getMovies({ min:0, max:16 });
+        //getMovies({ min:0, max:16 });
     }, []);
 
     return(
         <Layout>
             <div className="movie-container">
                 {
-                    movies.length > 0 && 
-                    movies.map((movie,index) => (
-                        <div style={{marginBottom:"25px"}}>
-                            <MovieList title={movie.genre} movies={movie.movies} key={index}/>
-                        </div>
-                    ))
+                    search_results.length > 0 ?
+                    <div style={{marginBottom:"25px"}}>
+                        <MovieList title="Search results" movies={search_results}/>
+                    </div>
+                    :
+                    <div>No search results</div>
+                }
+
+                {
+                    authenticated === true ? 
+                    <div style={{marginBottom:"25px"}}>
+                        <MovieList title="Recommended" movies={current_user.recommendations}/>
+                    </div>
+                    :
+                    <div>
+                        User is not authenticated
+                    </div>
                 }
             </div>
         </Layout>   

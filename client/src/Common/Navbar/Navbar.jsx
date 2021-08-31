@@ -5,9 +5,19 @@ import { useLocation } from 'react-router-dom';
 import './Navbar.css';
 
 const Navbar = () => {
-    const { authenticated, logoutUser } = useContext(AppContext);
+    const { authenticated, logoutUser, searchMovies, search_results } = useContext(AppContext);
     const location = useLocation();
     const path = location.pathname;
+
+    console.log("Search results: ", search_results);
+
+    const handleSearch = (e) => {
+        if(e.key === "Enter"){
+            if(e.target.value.trim() !== ""){
+                searchMovies(e.target.value);
+            }
+        }
+    }
 
     return (
         <div className='navbar'>
@@ -21,7 +31,7 @@ const Navbar = () => {
                     path !== '/login' && path !== '/signup' &&
                     <div className="search-bar">
                         <i className='bx bx-search-alt-2 search-bar-icon'></i>
-                        <input type="text" placeholder='Search movies' className='search-bar-input'/>
+                        <input type="text" placeholder='Search movies' className='search-bar-input' onKeyUp={handleSearch}/>
                     </div>
                 }
             </div>

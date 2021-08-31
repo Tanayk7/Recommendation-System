@@ -25,9 +25,9 @@ const  Login = (props) => {
     <Layout>
       <div className="content">
           <div className="card-header">Login</div>
-          <Link to="/Signup">
+          <Link to="/signup">
             <div className="create-account-option">
-              Don't have an account? &nbsp; <a href="{Signup}" className="href-link">Create An Account</a>   
+              Don't have an account? &nbsp; <a className="href-link">Create An Account</a>   
             </div>
           </Link>
 

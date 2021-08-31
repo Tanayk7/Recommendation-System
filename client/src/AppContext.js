@@ -12,7 +12,10 @@ export class ContextProvider extends React.Component {
             auth_token: null,
             current_user: {},
             recommendations: [],
+            search_query: "",
+            search_results: [],
             movies: [],
+
             loginUser: this.loginUser,
             signupUser: this.signupUser,
             logoutUser: this.logoutUser,
@@ -24,11 +27,30 @@ export class ContextProvider extends React.Component {
         }
     }
 
+    setQuery = (query) => {
+        this.setState({ ...this.state, search_query: query });
+    }
+
     async componentDidMount() {
         let current_user = await this.isAuthenticated();
 
         if (current_user) {
-            this.setState({ ...this.state, authenticated: true, current_user })
+            let token = JSON.parse(localStorage.getItem('auth'));
+            let user_movies = await apis.getUserMovies(token);
+            let user_recommendations = await apis.getUserRecommendations(token);
+
+            console.log("User movies: ", user_movies);
+            console.log("User recommendations: ", user_recommendations);
+
+            this.setState({
+                ...this.state,
+                authenticated: true,
+                current_user: {
+                    ...current_user,
+                    movies: user_movies,
+                    recommendations: user_recommendations
+                }
+            });
         }
     }
 
@@ -136,7 +158,9 @@ export class ContextProvider extends React.Component {
     }
 
     searchMovies = async (query) => {
+        let search_results = await apis.searchMovies(query);
 
+        this.setState({ ...this.state, search_results });
     }
 
     render() {
