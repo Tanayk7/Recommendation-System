@@ -28,7 +28,7 @@ export class ContextProvider extends React.Component {
         let current_user = await this.isAuthenticated();
 
         if (current_user) {
-            this.setState({ ...this.state, authenticated: true })
+            this.setState({ ...this.state, authenticated: true, current_user })
         }
     }
 

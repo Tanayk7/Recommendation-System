@@ -3,9 +3,11 @@ const Password = require('../utils/password');
 
 const userSchema = new mongoose.Schema(
     {
+        name: { type: String, required: true },
         email: { type: String, required: true },
         password: { type: String, required: true },
-        movies: { type: Array, required: false }
+        movies: { type: Array, required: false },
+        recommendations: { type: Array, required: false }
     },
     {
         timestamps: true,

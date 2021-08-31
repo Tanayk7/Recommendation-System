@@ -3,11 +3,13 @@ const express = require('express');
 const { body } = require('express-validator');
 const jwt = require('jsonwebtoken');
 
+const { randRange } = require('../../utils/math');
+const { generateAccessToken } = require('../../utils/auth');
 const validateRequest = require('../../middleware/validateRequest');
 const BadRequestError = require('../../errors/bad-request-error');
 const { policies } = require('../../config');
 const User = require('../../models/user');
-const { generateAccessToken } = require('../../utils/auth');
+const Movie = require('../../models/movie');
 
 const router = express.Router();
 const route = '/api/users/signup';
@@ -24,17 +26,39 @@ router.post(
     route,
     ...middlewares,
     async (req, res, next) => {
-        const { email, password } = req.body;
+        const { email, password, name } = req.body;
         const user_exists = await User.findOne({ email });
 
         if (user_exists) {
             return next(new BadRequestError("Email is in use"));
         }
 
-        const user = User.build({ email, password });
-        await user.save();
+        const all_movies = await Movie.find({});
+        console.log("all movies: ", all_movies);
 
-        const userJWT = generateAccessToken({ id: user.id, email: user.email });
+        let random_movies = [];
+
+        for (let obj of all_movies) {
+            let num_movies = 2;
+
+            for (let i = 0; i < num_movies; i++) {
+                let rand_index = randRange(0, 19);
+
+                random_movies.push({
+                    genre: obj.genre,
+                    ...obj.movies[rand_index]
+                });
+            }
+        }
+
+        console.log("random movies:", random_movies);
+
+        const user = User.build({ email, password, name, recommendations: random_movies });
+        await user.save();
+        const userJWT = generateAccessToken({
+            id: user.id,
+            email: user.email,
+        });
 
         res.status(201).send({
             user,

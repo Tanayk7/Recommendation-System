@@ -1,12 +1,28 @@
 GET http://localhost:3000/api/users/currentuser
-//Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxMmEzYTU1ZTIzZTQ1MjRmODI4YWZjNSIsImVtYWlsIjoidGUyMjEzMzNAdGVzdC5jb20iLCJpYXQiOjE2MzAzMzcyNzcsImV4cCI6MTYzMDMzODE3N30.BY-EezrMOJlngJFf744I5ik9vl5K_m9Iuv0Es-umI7c
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxMmUzOTEzZWQyOTg4MGE0OGEzNDBhZCIsImVtYWlsIjoidGVzdEB0ZXN0MTIzLmNvbSIsImlhdCI6MTYzMDQxOTM4MSwiZXhwIjoxNjMwNDIwMjgxfQ.brDZTD_Uknw7iQHxRIwnWx1ARR2pQvtt81pRM4MlEEY
+
+###
+GET http://localhost:3000/api/users/get-user-movies
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxMmUzOTEzZWQyOTg4MGE0OGEzNDBhZCIsImVtYWlsIjoidGVzdEB0ZXN0MTIzLmNvbSIsImlhdCI6MTYzMDQxOTM4MSwiZXhwIjoxNjMwNDIwMjgxfQ.brDZTD_Uknw7iQHxRIwnWx1ARR2pQvtt81pRM4MlEEY
+
+###
+GET http://localhost:3000/api/users/get-user-recommendations
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxMmUzOTEzZWQyOTg4MGE0OGEzNDBhZCIsImVtYWlsIjoidGVzdEB0ZXN0MTIzLmNvbSIsImlhdCI6MTYzMDQxOTM4MSwiZXhwIjoxNjMwNDIwMjgxfQ.brDZTD_Uknw7iQHxRIwnWx1ARR2pQvtt81pRM4MlEEY
+
+###
+POST http://localhost:3000/api/users/search-movies
+Content-Type: application/json
+
+{
+    "query": "avengers"
+}
 
 ###
 POST http://localhost:3000/api/users/signin
 Content-Type: application/json
 
 {
-    "email": "paven123@gmail.com",
+     "email": "test@test123.com",
     "password": "1234"
 }
 
@@ -15,19 +31,19 @@ POST http://localhost:3000/api/users/signup
 Content-Type: application/json
 
 {
-    "email": "paven123@gmail.com",
+    "name": "Tanay K",
+    "email": "test@test123.com",
     "password": "1234"
-}
-
+} 
 ###
 
 ###
 POST http://localhost:3000/api/users/add-movies
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxMmEzYTU1ZTIzZTQ1MjRmODI4YWZjNSIsImVtYWlsIjoidGUyMjEzMzNAdGVzdC5jb20iLCJpYXQiOjE2MzAxNTkyMDUsImV4cCI6MTYzMDE2MDEwNX0.9W55jlfjlnmJUEczmsc7oZ_ApbmiywgXyb2DCmdg_Qk
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxMmUzOTEzZWQyOTg4MGE0OGEzNDBhZCIsImVtYWlsIjoidGVzdEB0ZXN0MTIzLmNvbSIsImlhdCI6MTYzMDQxOTM4MSwiZXhwIjoxNjMwNDIwMjgxfQ.brDZTD_Uknw7iQHxRIwnWx1ARR2pQvtt81pRM4MlEEY
 
 {
-    "userId": "612a3a55e23e4524f828afc5",
+    "userId": "612e3913ed29880a48a340ad",
     "movies": [
         {
             "genre": "test",

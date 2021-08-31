@@ -1,5 +1,11 @@
 const assert = require('assert');
 
+function randRange(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
 function mean(arr) {
     let n = arr.length;
     let sum = arr.reduce((acc, val) => acc + val);
@@ -47,4 +53,7 @@ function euclideanDistance(vec1, vec2) {
     return Math.sqrt(sum).toFixed(2);
 }
 
-module.exports = { mean, mode, euclideanDistance };
+
+
+
+module.exports = { mean, mode, euclideanDistance, randRange };

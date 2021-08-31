@@ -9,7 +9,10 @@ const {
     currentUserRouter,
     addMoviesRouter,
     deleteMoviesRouter,
-    getMoviesRouter
+    getMoviesRouter,
+    getUserMoviesRouter,
+    getUserRecommendationsRouter,
+    searchMoviesRouter
 } = require('./routes');
 
 const app = express();
@@ -32,6 +35,9 @@ app.use(currentUserRouter);
 app.use(addMoviesRouter);
 app.use(deleteMoviesRouter);
 app.use(getMoviesRouter);
+app.use(getUserMoviesRouter);
+app.use(getUserRecommendationsRouter);
+app.use(searchMoviesRouter);
 app.use(errorHandler);
 
 module.exports = app;

@@ -36,7 +36,7 @@ router.post(
         const userJWT = generateAccessToken(
             {
                 id: existingUser.id,
-                email: existingUser.email
+                email: existingUser.email,
             },
         );
 
