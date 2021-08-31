@@ -61,7 +61,7 @@ const MovieList = ({title,movies}) => {
                         image={movie.avatar}
                         genre={title}
                         rating={movie.rating}
-                        year={movie.release_date} 
+                        year={movie.release_date && movie.release_date.substring(0,4)} 
                     />
                 ))
             }
