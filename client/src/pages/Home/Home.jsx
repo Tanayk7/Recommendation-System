@@ -1,5 +1,4 @@
 import React, {useEffect, useContext} from 'react';
-import {movieList} from "../../MovieLists/movieList"
 import Layout from '../../Common/Layout/Layout';
 import { AppContext } from '../../AppContext';
 import "./Home.css";
@@ -9,7 +8,13 @@ import "./Home.css";
 const Movie = ({ title, image, genre, rating, year }) => {
     return(
         <div className="movie-card">
-            <img className="thumbnail" src={image} alt={title} />
+            <div className="thumbnail-container">
+                <img className="thumbnail" src={image} alt={title} />
+                <div className="thumbnail-middle">
+                    <div className="thumbnail-middle-text">{title}</div>
+                </div>
+            </div>
+            
             <div className="movie-info">
 
                 <div className="movie-name">
@@ -43,6 +48,7 @@ const Movie = ({ title, image, genre, rating, year }) => {
 };
 
 const MovieList = ({title,movies}) => {
+    console.log(movies);
     return(
         <div className="movie-list-wrapper">
             <h1 className="app-title">{title}</h1>
@@ -55,7 +61,7 @@ const MovieList = ({title,movies}) => {
                         image={movie.avatar}
                         genre={title}
                         rating={movie.rating}
-                        year={movie.release_date} 
+                        year={movie.release_date && movie.release_date.substring(0,4)} 
                     />
                 ))
             }

@@ -1,19 +1,31 @@
 
-.card-header{
-    display: flex;
-    justify-content: center;
-    color: #FFFFFF;
-    font-weight: 700;
-    font-size: 30px;
-    padding: 20px;
-}
+
+
 
 .content{
     display: flex;
+    height: calc(100vh - 141.111px);
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    
+
+    .card-header{
+        display: flex;
+        justify-content: center;
+        color: #FFFFFF;
+        font-weight: 700;
+        font-size: 4 0px;
+        padding: 20px;
+    }
+
+    .create-account-option{
+        display: flex;
+        justify-content: center;
+        color: white;
+        font-size: 15px;
+        padding: 15px;
+    }
+
     .form{
         margin-top: 0.2em;
         display: flex;
