@@ -122,6 +122,44 @@ export default {
         }
     },
 
+    getUserMovies: async () => {
+        let url = base_url + '/api/users/get-user-movies',
+
+        try {
+            let response = await fetch(url, {
+                method: "GET",
+                headers: {
+                    "Authorization": `Bearer ${token}`
+                }
+            });
+            let data = await response.json();
+
+            return data;
+        }
+        catch (err) {
+            return err;
+        }
+    },
+
+    getUserRecommendations: async () => {
+        let url = base_url + '/api/users/get-user-recommendations',
+
+        try {
+            let response = await fetch(url, {
+                method: "GET",
+                headers: {
+                    "Authorization": `Bearer ${token}`
+                }
+            });
+            let data = await response.json();
+
+            return data;
+        }
+        catch (err) {
+            return err;
+        }
+    },
+
     searchMovies: async (query) => {
         let url = base_url + '/api/users/search-movies';
 
