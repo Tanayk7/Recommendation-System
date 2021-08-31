@@ -8,7 +8,13 @@ import "./Home.css";
 const Movie = ({ title, image, genre, rating, year }) => {
     return(
         <div className="movie-card">
-            <img className="thumbnail" src={image} alt={title} />
+            <div className="thumbnail-container">
+                <img className="thumbnail" src={image} alt={title} />
+                <div className="thumbnail-middle">
+                    <div className="thumbnail-middle-text">{title}</div>
+                </div>
+            </div>
+            
             <div className="movie-info">
 
                 <div className="movie-name">
@@ -42,6 +48,7 @@ const Movie = ({ title, image, genre, rating, year }) => {
 };
 
 const MovieList = ({title,movies}) => {
+    console.log(movies);
     return(
         <div className="movie-list-wrapper">
             <h1 className="app-title">{title}</h1>
