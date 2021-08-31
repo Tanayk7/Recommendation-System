@@ -8,37 +8,40 @@ export class ContextProvider extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            authenticated: false,
             auth_token: null,
             current_user: {},
             recommendations: [],
             movies: [],
             loginUser: this.loginUser,
             signupUser: this.signupUser,
+            logoutUser: this.logoutUser,
             addMovie: this.addMovie,
             removeMovie: this.removeMovie,
             getMovies: this.getMovies,
             searchMovies: this.searchMovies,
             isAuthenticated: this.isAuthenticated,
-            currentRoute: this.currentRoute,
         }
     }
 
-    componentDidMount() {
+    async componentDidMount() {
+        let current_user = await this.isAuthenticated();
 
+        if (current_user) {
+            this.setState({ ...this.state, authenticated: true })
+        }
     }
 
-    componentDidUpdate() {
-        console.log("ContextProvider updated!!");
-    }
-
+    // checks if the token in localstorage is valid 
     isAuthenticated = async () => {
-        let response = await apis.current_user(this.auth_token);
+        let token = JSON.parse(localStorage.getItem('auth'));
+        let response = await apis.currentUser(token);
 
         if (response.currentUser) {
-            return true;
+            return response.currentUser;
         }
 
-        return false;
+        return null;
     }
 
     signupUser = async (email, password, callback) => {
@@ -47,7 +50,7 @@ export class ContextProvider extends React.Component {
         if (user) {
             this.setState({
                 ...this.state,
-                auth_token: token,
+                authenticated: true,
                 current_user: user
             }, () => {
                 callback();
@@ -63,16 +66,19 @@ export class ContextProvider extends React.Component {
         if (user) {
             this.setState({
                 ...this.state,
-                auth_token: token,
+                authenticated: true,
                 current_user: user
             }, () => {
                 callback();
             });
+
+            window.localStorage.setItem("auth", JSON.stringify(token));
         }
     }
 
     logoutUser = () => {
-        window.localStorage.removeItem('auth');
+        window.localStorage.removeItem("auth");
+        this.setState({ ...this.state, authenticated: false });
     }
 
     getMovies = async (range) => {
@@ -82,50 +88,54 @@ export class ContextProvider extends React.Component {
     }
 
     addMovie = async (movie) => {
-        let response = await apis.addMovies({
-            userId: this.current_user.id,
-            token: this.auth_token,
-            movies: [movie]
-        });
+        if (this.isAuthenticated()) {
+            let token = JSON.parse(localStorage.getItem('auth'));
 
-        if ('movies' in response) {
-            this.setState({
-                ...this.state,
-                current_user: {
-                    ...this.current_user,
-                    movies: [
-                        ...response.movies
-                    ]
-                }
-            })
+            let response = await apis.addMovies({
+                token,
+                userId: this.current_user.id,
+                movies: [movie]
+            });
+
+            if ('movies' in response) {
+                this.setState({
+                    ...this.state,
+                    current_user: {
+                        ...this.current_user,
+                        movies: [
+                            ...response.movies
+                        ]
+                    }
+                })
+            }
         }
     }
 
     removeMovie = async (movie) => {
-        let response = await apis.deleteMovies({
-            userId: this.current_user.id,
-            token: this.auth_token,
-            movies: [movie]
-        });
+        if (this.isAuthenticated()) {
+            let token = JSON.parse(localStorage.getItem('auth'));
 
-        if ('movies' in response) {
-            this.setState({
-                ...this.state,
-                current_user: {
-                    ...this.current_user,
-                    movies: [
-                        ...response.movies
-                    ]
-                }
-            })
+            let response = await apis.deleteMovies({
+                token,
+                userId: this.current_user.id,
+                movies: [movie]
+            });
+
+            if ('movies' in response) {
+                this.setState({
+                    ...this.state,
+                    current_user: {
+                        ...this.current_user,
+                        movies: [
+                            ...response.movies
+                        ]
+                    }
+                })
+            }
         }
     }
 
     searchMovies = async (query) => {
-
-    }
-
-    currentRoute = async () => {
 
     }
 
