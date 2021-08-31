@@ -8,15 +8,15 @@ import { ContextProvider } from './AppContext';
 
 const App = () => {
   return (
-    <ContextProvider>
       <Router>
-        <Switch>
-          <Route path="/" exact component={Home}/>
-          <Route path="/login" component={Login}/>
-          <Route path='/signup' component={Signup}/>
-        </Switch>
+        <ContextProvider>
+          <Switch>
+            <Route path="/" exact component={Home}/>
+            <Route path="/login" component={Login}/>
+            <Route path='/signup' component={Signup}/>
+          </Switch>
+        </ContextProvider>
       </Router>
-    </ContextProvider>
   );
 }
 

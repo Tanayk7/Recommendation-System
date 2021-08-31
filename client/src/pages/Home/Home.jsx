@@ -1,21 +1,19 @@
-import React from 'react';
-import {movieList} from "../../MovieLists/movieList"
+import React, {useEffect, useContext} from 'react';
 import Layout from '../../Common/Layout/Layout';
+import { AppContext } from '../../AppContext';
 import "./Home.css";
 
 // const image_path = 'https://image.tmdb.org/t/p/w1280';
 
-const Movie = ({ name, image, genre, rating, year }) => {
+const Movie = ({ title, image, genre, rating, year }) => {
     return(
         <div className="movie-card">
-
-            <img className="thumbnail" src={image} alt={name} />
-            
+            <img className="thumbnail" src={image} alt={title} />
             <div className="movie-info">
 
                 <div className="movie-name">
                     <div className="name-content">
-                        {name}
+                        {title}
                     </div>
                 </div>
 
@@ -43,34 +41,50 @@ const Movie = ({ name, image, genre, rating, year }) => {
     )
 };
 
-const MovieList = ({movies}) => {
+const MovieList = ({title,movies}) => {
     return(
         <div className="movie-list-wrapper">
+            <h1 className="app-title">{title}</h1>
             <div className="movie-list">
-
             {
-                movies.map(movie => (
-                    <Movie
-                        name={movie.name}
-                        image={movie.image}
-                        genre={movie.genre}
-                        rating={movie.rating}
-                        year={movie.year.substring(0,4)} 
-                    />
-                ))
+                movies.map(movie => {
+                    console.log(typeof movie.release_date);
+                    return (
+                        <Movie
+                            title={movie.title}
+                            image={movie.avatar}
+                            genre={title}
+                            rating={movie.rating}
+                            year={movie.release_date} 
+                        />
+                    )
+                })
             }
-
             </div>
         </div>
     )
 }
 
 const Home = () => {
+    const { getMovies, movies } = useContext(AppContext);
+
+    console.log(movies);
+
+    useEffect(() => {
+        getMovies({ min:0, max:16 });
+    }, []);
+
     return(
         <Layout>
             <div className="movie-container">
-                <h1 className="app-title">Recommended</h1>
-                <MovieList movies = {movieList} />
+                {
+                    movies.length > 0 && 
+                    movies.map(movie => (
+                        <div style={{marginBottom:"25px"}}>
+                            <MovieList title={movie.genre} movies={movie.movies}/>
+                        </div>
+                    ))
+                }
             </div>
         </Layout>   
     );

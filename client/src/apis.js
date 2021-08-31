@@ -59,6 +59,7 @@ export default {
         }
     },
 
+    // gets movies for home page 
     getMovies: async ({ min, max }) => {
         let url = base_url + '/api/users/get-movies';
 
@@ -111,6 +112,26 @@ export default {
                     "Authorization": `Bearer ${token}`
                 },
                 body: JSON.stringify({ userId, movies })
+            });
+            let data = await response.json();
+
+            return data;
+        }
+        catch (err) {
+            return err;
+        }
+    },
+
+    searchMovies: async (query) => {
+        let url = base_url + '/api/users/search-movies';
+
+        try {
+            let response = await fetch(url, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ query })
             });
             let data = await response.json();
 
