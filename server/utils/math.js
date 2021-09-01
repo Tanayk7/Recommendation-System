@@ -53,7 +53,4 @@ function euclideanDistance(vec1, vec2) {
     return Math.sqrt(sum).toFixed(2);
 }
 
-
-
-
 module.exports = { mean, mode, euclideanDistance, randRange };

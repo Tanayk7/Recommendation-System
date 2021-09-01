@@ -1,5 +1,7 @@
-import React from 'react';
+import React, {useContext} from 'react';
+import { AppContext } from '../../AppContext';
 import Navbar from '../Navbar/Navbar';
+
 import './Layout.css';
 
 const Layout = (props) => {

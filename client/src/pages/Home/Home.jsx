@@ -1,13 +1,14 @@
 import React, {useEffect, useContext} from 'react';
 import Layout from '../../Common/Layout/Layout';
 import { AppContext } from '../../AppContext';
+import Modal from '../../Common/Modal/Modal';
 import "./Home.css";
 
 // const image_path = 'https://image.tmdb.org/t/p/w1280';
 
-const Movie = ({ title, image, genre, rating, year }) => {
+const Movie = ({ title, image, genre, rating, year,onClick }) => {
     return(
-        <div className="movie-card">
+        <div className="movie-card" onClick={onClick}>
             <div className="thumbnail-container">
                 <img className="thumbnail" src={image} alt={title} />
                 <div className="thumbnail-middle">
@@ -48,6 +49,8 @@ const Movie = ({ title, image, genre, rating, year }) => {
 };
 
 const MovieList = ({title,movies}) => {
+    const { setCurrentMovie } = useContext(AppContext);
+
     return(
         <div className="movie-list-wrapper">
             <h1 className="app-title">{title}</h1>
@@ -55,6 +58,7 @@ const MovieList = ({title,movies}) => {
             {
                 movies.map((movie,index) => (
                     <Movie
+                        onClick={() => setCurrentMovie(movie)}
                         key={index}
                         title={movie.title}
                         image={movie.avatar}
@@ -70,7 +74,7 @@ const MovieList = ({title,movies}) => {
 }
 
 const Home = () => {
-    const { getMovies, movies, search_results, authenticated, current_user } = useContext(AppContext);
+    const { modal_open, current_movie, getMovies, movies, search_results, authenticated, current_user } = useContext(AppContext);
     
     useEffect(() => {
         //getMovies({ min:0, max:16 });
@@ -78,6 +82,7 @@ const Home = () => {
 
     return(
         <Layout>
+            { modal_open && <Modal movie={current_movie}/> }
             <div className="movie-container">
                 {
                     search_results.length > 0 ?

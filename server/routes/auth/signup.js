@@ -34,7 +34,6 @@ router.post(
         }
 
         const all_movies = await Movie.find({});
-        console.log("all movies: ", all_movies);
 
         let random_movies = [];
 
@@ -44,20 +43,23 @@ router.post(
             for (let i = 0; i < num_movies; i++) {
                 let rand_index = randRange(0, 19);
 
-                random_movies.push({
+                let movie_obj = {
                     genre: obj.genre,
                     ...obj.movies[rand_index]
-                });
+                }
+
+                if (!random_movies.find(movie => movie.title === movie_obj.title)) {
+                    random_movies.push(movie_obj);
+                }
             }
         }
-
-        console.log("random movies:", random_movies);
 
         const user = User.build({ email, password, name, recommendations: random_movies });
         await user.save();
         const userJWT = generateAccessToken({
             id: user.id,
             email: user.email,
+            name: user.name
         });
 
         res.status(201).send({

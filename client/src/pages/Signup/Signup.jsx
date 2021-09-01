@@ -15,7 +15,7 @@ export const Signup = (props) => {
     e.preventDefault();
 
     let { email, password, name } = state;
-
+    console.log("State:  ", state);
     await signupUser(email,password, name, () => {
       props.history.push('/');
     });

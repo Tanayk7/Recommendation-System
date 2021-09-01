@@ -3,6 +3,7 @@ import Layout from '../../Common/Layout/Layout';
 import "./login.scss"
 import { AppContext } from '../../AppContext';
 import { Link } from "react-router-dom";
+import Modal  from '../../Common/Modal/Modal';
 
 const  Login = (props) => {
   const { loginUser } = useContext(AppContext);

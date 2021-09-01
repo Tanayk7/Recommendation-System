@@ -9,13 +9,14 @@ export class ContextProvider extends React.Component {
         super(props);
         this.state = {
             authenticated: false,
+            modal_open: false,
             auth_token: null,
             current_user: {},
             recommendations: [],
             search_query: "",
             search_results: [],
             movies: [],
-
+            current_movie: {},
             loginUser: this.loginUser,
             signupUser: this.signupUser,
             logoutUser: this.logoutUser,
@@ -24,11 +25,18 @@ export class ContextProvider extends React.Component {
             getMovies: this.getMovies,
             searchMovies: this.searchMovies,
             isAuthenticated: this.isAuthenticated,
+            setCurrentMovie: this.setCurrentMovie,
+            modalClose: this.modalClose,
+            isFavourite: this.isFavourite
         }
     }
 
-    setQuery = (query) => {
-        this.setState({ ...this.state, search_query: query });
+    modalClose = () => {
+        this.setState({ ...this.state, modal_open: false });
+    }
+
+    setCurrentMovie = (movie) => {
+        this.setState({ ...this.state, current_movie: { ...movie }, modal_open: true })
     }
 
     async componentDidMount() {
@@ -38,9 +46,6 @@ export class ContextProvider extends React.Component {
             let token = JSON.parse(localStorage.getItem('auth'));
             let user_movies = await apis.getUserMovies(token);
             let user_recommendations = await apis.getUserRecommendations(token);
-
-            console.log("User movies: ", user_movies);
-            console.log("User recommendations: ", user_recommendations);
 
             this.setState({
                 ...this.state,
@@ -103,6 +108,25 @@ export class ContextProvider extends React.Component {
         this.setState({ ...this.state, authenticated: false });
     }
 
+    isFavourite = (movie) => {
+        let user_movies = [...this.state.current_user.movies];
+
+        if (user_movies.length === 0) {
+            return false;
+        }
+
+        for (let i = 0; i < user_movies.length; i++) {
+            user_movies[i] = JSON.stringify(user_movies[i]);
+        }
+
+        if (user_movies.includes(JSON.stringify(movie))) {
+            return true
+        }
+        else {
+            return false;
+        }
+    }
+
     getMovies = async (range) => {
         let response = await apis.getMovies(range);
 
@@ -110,51 +134,43 @@ export class ContextProvider extends React.Component {
     }
 
     addMovie = async (movie) => {
-        if (this.isAuthenticated()) {
-            let token = JSON.parse(localStorage.getItem('auth'));
+        let token = JSON.parse(localStorage.getItem('auth'));
 
-            let response = await apis.addMovies({
-                token,
-                userId: this.current_user.id,
-                movies: [movie]
-            });
+        let response = await apis.addMovies({
+            token,
+            userId: this.state.current_user.id,
+            movies: [movie]
+        });
 
-            if ('movies' in response) {
-                this.setState({
-                    ...this.state,
-                    current_user: {
-                        ...this.current_user,
-                        movies: [
-                            ...response.movies
-                        ]
-                    }
-                })
+        this.setState({
+            ...this.state,
+            current_user: {
+                ...this.state.current_user,
+                movies: [
+                    ...response
+                ]
             }
-        }
+        });
     }
 
     removeMovie = async (movie) => {
-        if (this.isAuthenticated()) {
-            let token = JSON.parse(localStorage.getItem('auth'));
+        let token = JSON.parse(localStorage.getItem('auth'));
 
-            let response = await apis.deleteMovies({
-                token,
-                userId: this.current_user.id,
-                movies: [movie]
-            });
+        let response = await apis.deleteMovies({
+            token,
+            userId: this.state.current_user.id,
+            movies: [movie]
+        });
 
-            if ('movies' in response) {
-                this.setState({
-                    ...this.state,
-                    current_user: {
-                        ...this.current_user,
-                        movies: [
-                            ...response.movies
-                        ]
-                    }
-                })
+        this.setState({
+            ...this.state,
+            current_user: {
+                ...this.state.current_user,
+                movies: [
+                    ...response
+                ]
             }
-        }
+        });
     }
 
     searchMovies = async (query) => {
