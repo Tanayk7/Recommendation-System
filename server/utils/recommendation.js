@@ -5,6 +5,7 @@ const K = 2;
 
 // preprocess the user data
 function preprocess(users) {
+
     for (let user of users) {
         let user_movie_ratings = [];
         let user_movie_genres = [];

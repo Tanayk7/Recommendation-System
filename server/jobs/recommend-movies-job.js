@@ -4,12 +4,14 @@ const setTimeoutSync = require('../utils/setTimeoutSync');
 const { policies, DB_URI } = require('../config');
 const mongoose = require('mongoose');
 const User = require('../models/user');
+const Movie = require('../models/movie');
 const { mean, mode, euclideanDistance } = require('../utils/math');
 
 const K = 2;
 
 let all_users = [];
 let users = [];
+let genres = {}
 
 // Initialization code here 
 const init = async () => {
@@ -20,45 +22,9 @@ const init = async () => {
         useCreateIndex: true
     })
     console.log("Worker connection to DB successful");
-
-    // find all users in DB
-    all_users = await User.find({});
-
-    for (let user of all_users) {
-        users.push({
-            id: user.id,
-            movies: user.movies,
-            recommendations: user.recommendations,
-
-        });
-    }
-
-    console.log("Users: ", users);
-
-    users = preprocess(users);
-
-    console.log("Done preprocessing: ", users);
 }
 
-// task code here 
-// const task = async (data = null) => {
-//     console.log("Running task...");
-
-//     // check if users are present 
-//     if (!users) {
-//         console.log("No users found");
-//         return;
-//     }
-
-//     // send test data
-//     let results = { a: "123", b: "1234" };
-
-//     parentPort.postMessage(results);
-// }
-
-
 function preprocess(users) {
-
     for (let user of users) {
         let user_movie_ratings = [];
         let user_movie_genres = [];
@@ -124,7 +90,7 @@ function hasWatched(movie, user) {
         if (mv.genre === movie.genre &&
             mv.rating === movie.rating &&
             mv.popularity === movie.popularity &&
-            mv.name === movie.name
+            mv.title === movie.title
         ) {
             return true;
         }
@@ -135,6 +101,7 @@ function hasWatched(movie, user) {
 
 // gets movie recommendations for a user 
 function getRecommendations(current_user, all_users) {
+    //console.log("Current user: ", current_user);
     let user_neighbours = current_user.neighbours;
     let movie_recommendations = [];
 
@@ -160,31 +127,87 @@ function getRecommendations(current_user, all_users) {
     return movie_recommendations;
 }
 
-function recommendMovies(users) {
-    let all_users = [...users];
-    console.log("All users initially: ", all_users);
+async function recommendMovies() {
+    let movie_objects = await Movie.find({});
 
-    all_users = preprocess(all_users);
-    console.log("All users after pre-processing: ", all_users);
+    for (let i = 0; i < movie_objects.length; i++) {
+        genres[movie_objects[i].genre] = i
+    }
+
+    // find all users in DB
+    all_users = await User.find({});
+
+    if (all_users.length === 0) {
+        console.log("No users in DB");
+        return;
+    }
 
     for (let user of all_users) {
-        user.neighbours = findNearestNeighbours(user, all_users, K);
-    }
-    console.log("All users after finding neighbours: ", all_users);
+        if (user.movies.length > 0) {
+            let user_movies = [...user.movies];
 
-    for (let user of all_users) {
-        user.recommendations = getRecommendations(user, all_users);
+            for (let i = 0; i < user_movies.length; i++) {
+                user_movies[i] = {
+                    ...user_movies[i],
+                    genre: genres[user_movies[i].genre]
+                }
+            }
+
+            users.push({
+                id: user.id,
+                movies: user_movies,
+            });
+        }
     }
-    console.log("All users after getting recommendations: ", all_users);
+
+    if (users.length > 0 && users.length > K) {
+        users = preprocess(users);
+        console.log("Done preprocessing: ", users);
+    }
+    else {
+        console.log("Not enough users...");
+        return
+    }
+
+    for (let user of users) {
+        user.neighbours = findNearestNeighbours(user, users, K);
+    }
+
+    for (let user of users) {
+        user.recommendations = getRecommendations(user, users);
+    }
+
+    for (let i = 0; i < users.length; i++) {
+        for (let j = 0; j < users[i].recommendations.length; j++) {
+            users[i].recommendations[j] = JSON.parse(users[i].recommendations[j]);
+
+            const key = Object.keys(genres)[Object.values(genres).indexOf(users[i].recommendations[j].genre)];
+
+            users[i].recommendations[j].genre = key;
+        }
+
+        for (let k = 0; k < users[i].movies.length; k++) {
+            const key = Object.keys(genres)[Object.values(genres).indexOf(users[i].movies[k].genre)];
+
+            users[i].movies[k].genre = key;
+        }
+    }
+
+    for (let user of users) {
+        //console.log(user.recommendations);
+        await User.findOneAndUpdate({ _id: user.id }, { recommendations: [...user.recommendations] }, { new: true });
+        console.log("Updated recommendations for user: ", user.id);
+    }
 }
-
 
 // Represents one job with multiple tasks
 (async () => {
     await init();
 
+    console.log("Initialization complete...");
+
     while (true) {
         await setTimeoutSync(policies.recommendation.INTERVAL);
-        //await task();
+        await recommendMovies(users);
     };
 })();

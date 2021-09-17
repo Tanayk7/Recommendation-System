@@ -85,22 +85,15 @@ const Home = () => {
             { modal_open && <Modal movie={current_movie}/> }
             <div className="movie-container">
                 {
-                    search_results.length > 0 ?
+                    search_results.length > 0 &&
                     <div style={{marginBottom:"25px"}}>
                         <MovieList title="Search results" movies={search_results}/>
                     </div>
-                    :
-                    <div>No search results</div>
                 }
-
                 {
-                    authenticated === true ? 
+                    authenticated === true && 
                     <div style={{marginBottom:"25px"}}>
                         <MovieList title="Recommended" movies={current_user.recommendations}/>
-                    </div>
-                    :
-                    <div>
-                        User is not authenticated
                     </div>
                 }
             </div>

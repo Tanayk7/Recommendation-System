@@ -29,7 +29,7 @@ const jobs = [
 module.exports = {
     PORT,
     DB_URI: uri,
-    RUN_JOBS: false,
+    RUN_JOBS: true,
     policies: {
         auth: {
             TOKEN_EXPIRY: '15m'
